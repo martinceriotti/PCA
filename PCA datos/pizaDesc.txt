@@ -1,0 +1,11 @@
+piza: cada registro contiene medidas que capturan el tipo de cosas que hacen que una pizza sea sabrosa para distíntas marcas de pizas
+
+brand -- Pizza brand (class label)
+id -- Sample analysed
+mois -- Amount of water per 100 grams in the sample
+prot -- Amount of protein per 100 grams in the sample
+fat -- Amount of fat per 100 grams in the sample
+ash -- Amount of ash per 100 grams in the sample
+sodium -- Amount of sodium per 100 grams in the sample
+carb -- Amount of carbohydrates per 100 grams in the sample
+cal -- Amount of calories per 100 grams in the sample

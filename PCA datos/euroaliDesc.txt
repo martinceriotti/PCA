@@ -1,0 +1,12 @@
+EUROALI
+Este conjunto de datos está constituido por 25 observaciones y 9 
+variables. Las observaciones corresponden a países Europeos, y las 
+variables al porcentaje de consumo de proteínas que cada tipo de 
+alimento proporciona.
+    Las variables son: Carnes rojas (CR), Carnes blancas (CB),
+ Huevos (H), Leche (L), Pescado (P), Cereales (C), Fecula (F),
+ Nueces (N), Fruta y verdura (FV).
+
+Primera fila de datos
+ 10.10    1.40     0.50    8.90     0.20     42.30    0.60      5.50    1.70
+            

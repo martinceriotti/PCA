@@ -1,0 +1,9 @@
+INVEST
+Este conjunto de datos presenta 21 observaciones de 8 variables.
+ Las observaciones corrsponden a los países de la OCDE y las variables
+ son el número de publicaciones científicas recogidas en 3 años en ocho bases de datos de producción científica. 
+Las variables se han llamado según la orientación de la base de datos: 
+InterA(por interdisciplinaria), Inter F (por interdisciplinaria), Agric.,
+ Biolo., Medic., Quimic., Ingen. y Física.
+Primera fila de datos
+    815319    379851     88663     58104    255864    440134    111015    162288

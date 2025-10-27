@@ -1,0 +1,12 @@
+ACCIONES
+Este conjunto de datos presenta 34 observaciones y 3 variables.
+Las observaciones corresponden a distintas acciones que cotizan en el mercado 
+continuo español y las variables a tres medidas de rentabilidad de estas acciones
+durante un período de tiempo.
+Las variables son : X1 es la rentabilidad efectiva por dividendos,
+X2 es la proporción de beneficios que va a dividendos
+y X3 el ratio entre precio por acción y beneficios.
+Fuente: Elaboración propia
+Primera fila de los datos
+            3.40           89.70           30.20
+            

@@ -1,0 +1,13 @@
+MUNDODES
+Este conjunto de datos consta de 91observaciones y 6 variables. 
+Las observaciones corresponden a 91 países. Las variables son indicadores
+de desarrollo. Las seis variables son :
+Tasa Nat.:Ratio de natalidad por 1000 habitantes
+Tasa Mort:Ratio de mortalidad por 1000 habitantes
+Mort.Inf:Mortalidad infantil (por debajo de un año)
+Esp.Hom:Esperanza de vida en hombres
+Esp.Muj.:Esperanza de vida en mujeres
+PNB:Producto Nacional Bruto per cápita
+Primera fila de datos
+ 24.70    5.70      30.80     69.60   75.50    600.00     1.00
+           

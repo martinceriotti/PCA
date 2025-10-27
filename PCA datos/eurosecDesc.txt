@@ -1,0 +1,5 @@
+El n˙mero de observaciones es 26 y el de variables 9. Las observaciones
+corresponden a paÌses Europeos. Las variables miden el porcentaje de empleo en los distintos
+sectores econÛmicos.
+Los sectores son: Agricultura, MinerÌa, Industria, EnergÌa, ConstrucciÛn, Servicios Industriales, Finanzas, Servicios, Transportes y Comunicaciones.
+Datos: Tabla A.2

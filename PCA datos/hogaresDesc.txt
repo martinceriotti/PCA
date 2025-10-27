@@ -1,0 +1,12 @@
+HOGARES
+Estos datos corresponden a 51 observaciones y 9 variables.
+ Las observaciones son las provincias españolas más Ceuta yMelilla,
+ que aparecen unidas como una única provincia, y las variables los
+ nueve epígrafes en los que se desglosa la Encuesta de Presupuestos 
+Familiares en España.
+ Las variables son: X1= alimentación, X2= vestido y calzado, X3= vivienda,
+ X4= moviliario doméstico, X5= gastos sanitarios, X6= transporte,
+ X7= enseñanza y cultura, X8= turismo y ocio, X9= otros gastos.
+Primera fila de los datos:
+618957.00  295452.00   522128.00   167067.00    58288.00   280035.00   129219.00   307967.00  107334.00
+       

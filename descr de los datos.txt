@@ -1,0 +1,40 @@
+
+
+
+
+
+Los datos del archivo corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables
+cualitativas. En el identificador de cada accesión se encuentra la indicación de la procedencia del mismo: 
+
+AL (altiplano), 
+VA (Valles de altura), 
+VS (Valles secos), 
+VH (Valles húmedos orientales).
+
+Variables cuantitativas:
+DIAMTAL Diámetro del tallo (mm)
+ALTPL Altura de planta (cm)
+LONGHO Longitud de la hoja (mm)
+ANCHOHO Ancho de la hoja (mm)
+LONGPEC Longitud del peciolo (mm)
+LONGPAN Longitud de la panoja (cm)
+LONGGLO Longitud del glomérulo (mm)
+DSBF Días desde siembra a botón floral (días)
+DSFL Días desde siembra a floración (días)
+DSMF Días desde siembra a madurez fisiológica (días)
+
+Variables cualitativas:
+AX Presencia de axilas: Si – No
+CEstrias Color de las estrías: amarilla, rojas, purpuras, no (no tiene estrías)
+CTallo Color del tallo: rojo, púrpura, verde
+PoRAMA Presencia de ramas Si – No
+CFA Color de panoja a fin de antesis: Blanca – Púrpura – Gris
+Cco Color de la panoja a la cosecha: amarilla, blanca, púrpura, marrón
+TP Tipo de panoja: Diferenciada y terminal – No diferenciada
+FP Forma de panoja: Glomerulada – Amarantiforme
+
+Origen de los individuos
+AL Altiplano
+VA Valles de altura
+VH Valles húmedos
+VS Valles secos

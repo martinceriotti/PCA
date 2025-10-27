@@ -1,0 +1,5 @@
+EPF Estos datos corresponden a 51 observaciones y 9 variables. Las observaciones son las
+provincias españolas, que aparecen unidas como una única provincia, y
+las variables los nueve epígrafes en los que se desglosa la Encuesta de Presupuestos Familiares
+en Españaa.
+columnas: alimentacion	vestimenta	vivienda	gastosDomestico	gastosSanitarios	transporte	ensenanzaCultura	turismoOcio	otrosGastos	provincia
