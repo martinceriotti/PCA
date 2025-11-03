@@ -1,0 +1,321 @@
+---
+title: "Trabajo Práctico PCA"
+authors:
+  - name: "Miguel Garrone"
+    affiliations: "Universidad Austral"
+  - name: "Lucía Tamplin"
+  - name: "Milagros Terán"
+  - name: "Martín Ceriotti"
+
+format:
+  html:
+    toc: TRUE
+    lang: es
+
+editor: visual
+---
+
+## Introducción
+
+Trabajo práctico entregable para la materia "Introducción a Data Mining".
+
+## Descripción del dataset.
+
+Los datos del archivo corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.
+
+### Variables cuantitativas
+
+1.  DIAMTAL Diámetro del tallo (mm)
+
+2.  ALTPL Altura de planta (cm)
+
+3.  LONGHO Longitud de la hoja (mm)
+
+4.  ANCHOHO Ancho de la hoja (mm)
+
+5.  LONGPEC Longitud del peciolo (mm)
+
+6.  LONGPAN Longitud de la panoja (cm)
+
+7.  LONGGLO Longitud del glomérulo (mm)
+
+8.  DSBF Días desde siembra a botón floral (días)
+
+9.  DSFL Días desde siembra a floración (días)
+
+10. DSMF Días desde siembra a madurez fisiológica (días)
+
+### Variables cualitativas
+
+1.  AX Presencia de axilas: Si – No
+
+2.  CEstrias Color de las estrías: amarilla, rojas, purpuras, no (no tiene estrías)
+
+3.  CTallo Color del tallo: rojo, púrpura, verde
+
+4.  PoRAMA Presencia de ramas Si – No
+
+5.  CFA Color de panoja a fin de antesis: Blanca – Púrpura – Gris
+
+6.  Cco Color de la panoja a la cosecha: amarilla, blanca, púrpura, marrón
+
+7.  TP Tipo de panoja: Diferenciada y terminal – No diferenciada
+
+8.  FP Forma de panoja: Glomerulada – Amarantiforme
+
+### Zona
+
+Agregamos una columna al dataset llamada "zona" con el dato de origen de los individuos. Los valores pueden ser:
+
+-   AL Altiplano
+
+-   VA Valles de altura
+
+-   VH Valles húmedos
+
+-   VS Valles secos
+
+```{r}
+#| message: false
+#| warning: false
+#| include: false
+#| paged-print: false
+knitr::opts_chunk$set(echo = TRUE)
+
+masterPath <- "./PCA datos/"
+
+listofpackages <- c( "psych",     "ggplot2",    "knitr",
+                     "pastecs",   "FactoMineR", "grid",
+                     "gridExtra", "ggfortify",  "factoextra",
+                     "corrplot",  "dplyr", "ggbiplot", "ggrepel")
+newPackages <- listofpackages[ !(listofpackages %in% installed.packages()[, "Package"])]
+if(length(newPackages)) install.packages(newPackages)
+for (paquete in listofpackages) {
+  suppressMessages(library(paquete, character.only = TRUE))
+}
+
+datos <- read.table(paste0(masterPath,"quinoa.txt"),
+                    sep="\t",
+                    dec=",",
+                    fileEncoding = "utf8",
+                    header = T)
+
+datos2 <- read.table(paste0(masterPath,"quinoa.txt"),
+                    sep="\t",
+                    dec=",",
+                    fileEncoding = "utf8",
+                    header = T)
+
+datos2 <- mutate(datos2, zona = substr(poblaciones,1,2))
+knitr::kable(head(datos))
+str(datos)
+
+datos <- select(datos, DIAMTAL,   
+                ALTPL ,    
+                LONGHO,    
+                ANCHOHO,   
+                LONGPEC ,  
+                LONGPAN ,  
+                LONGGLO ,  
+                DSBF,      
+                DSFL,      
+                DSMF      )
+res<-pastecs::stat.desc(datos) %>% as.matrix %>% as.data.frame %>% round(2)
+
+res = format(res, scientific = FALSE)
+
+```
+
+## Análisis Descriptivo.
+
+### Tabla.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+knitr::kable(data.frame(res),digits = 2)
+```
+
+### Matriz de Dispersión.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+pairs.panels(datos, 
+             method = "pearson", # correlation method
+             hist.col = "#00AFBB",
+             density = TRUE,  # show density plots
+             ellipses = F # show correlation ellipses
+)
+```
+
+Vemos distribuciones poco campanulares y altas correlaciones para algunas de las variables.
+
+### Boxplots.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+dfInd<-stack(datos)
+names(dfInd)<-c("valor","variable")
+ggplot(dfInd, aes(x = variable, y = valor)) +
+  geom_boxplot()+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+Se observan distribuciones muy distintas.
+
+## Proporción de varianza explicada por cada PC.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+mediPca <- prcomp(as.matrix(datos),center = T, scale. = T)
+
+library(knitr)
+library(kableExtra)
+
+# Extraer importancia de los PCs
+imp <- summary(mediPca)$importance
+
+# Crear tabla con kable
+kable(imp, digits = 3, caption = "Proporción de varianza explicada por cada PC") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  row_spec(0, bold = TRUE, background = "#D3D3D3")  # encabezado estilizado
+
+
+```
+
+Tenemos dos componentes con desvío mayor a 1. Las dos primeras componentes explican el 81% de la variabilidad de los datos.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+barplot(mediPca$sdev,
+        main = "Desviación estándar de los PCs",
+        ylab = "Desviación estándar",
+        xlab = "Componentes",
+        ylim = c(0, max(mediPca$sdev) * 1.2),
+        col = "steelblue")
+
+
+```
+
+### Matriz de Cargas.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+
+knitr::kable(as.data.frame(unclass(mediPca$rotation)))
+```
+
+La PC1 es una ***componentes de tamaño***, dado que todas las variables tienen el mismo signo. Se consideran scores naturales. El resto de las ***componentes son de forma*****.**
+
+### Datos Transformados. Primeros Registros.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+#Datos transformados (primeros registros)
+
+knitr::kable((mediPca$x))
+```
+
+### Biplot.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+# biplot 
+
+autoplot(mediPca, 
+         data = datos2, 
+         colour = 'zona', 
+         loadings = TRUE, 
+         loadings.label = TRUE, 
+         loadings.label.size = 4,
+         size = 4)
+```
+
+### Gráfico de Variables.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+
+
+mundoPca <- FactoMineR::PCA(X = datos, scale.unit = T,ncp = ncol(datos), graph = T)
+
+```
+
+Cada vector representa una variables original. La dirección y longitud indican la importancia y la correlación de la vaariable con los componentes principales.
+
+El ángulo entre vectores indica correlación entre variables.
+
+### Coordenadas de las variables en los PC.
+
+```{r}
+
+var <- get_pca_var(mundoPca)
+knitr::kable(var$coord)
+
+```
+
+### Calidad de la representación de cada variable en cada PC.
+
+```{r}
+knitr::kable(head(var$cos2))
+
+```
+
+### Contribución de cada variable a cda PC.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+knitr::kable(var$contrib)
+
+
+```
+
+### Contribución de las variables.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+fviz_contrib(mundoPca, choice = "var", axes = 1:2)  #Contribucion de las variables.
+```
+
+### Contribución de los individuos.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+fviz_contrib(mundoPca, choice = "ind", axes = 1:2)  #Contribucion de los individuos.
+
+
+```

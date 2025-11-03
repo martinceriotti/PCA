@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Trabajo Práctico PCA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="index_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#descripción-del-dataset." id="toc-descripción-del-dataset." class="nav-link" data-scroll-target="#descripción-del-dataset.">Descripción del dataset.</a>
+  <ul class="collapse">
+  <li><a href="#variables-cuantitativas" id="toc-variables-cuantitativas" class="nav-link" data-scroll-target="#variables-cuantitativas">Variables cuantitativas</a></li>
+  <li><a href="#variables-cualitativas" id="toc-variables-cualitativas" class="nav-link" data-scroll-target="#variables-cualitativas">Variables cualitativas</a></li>
+  <li><a href="#zona" id="toc-zona" class="nav-link" data-scroll-target="#zona">Zona</a></li>
+  </ul></li>
+  <li><a href="#análisis-descriptivo." id="toc-análisis-descriptivo." class="nav-link" data-scroll-target="#análisis-descriptivo.">Análisis Descriptivo.</a>
+  <ul class="collapse">
+  <li><a href="#tabla." id="toc-tabla." class="nav-link" data-scroll-target="#tabla.">Tabla.</a></li>
+  <li><a href="#matriz-de-dispersión." id="toc-matriz-de-dispersión." class="nav-link" data-scroll-target="#matriz-de-dispersión.">Matriz de Dispersión.</a></li>
+  <li><a href="#boxplots." id="toc-boxplots." class="nav-link" data-scroll-target="#boxplots.">Boxplots.</a></li>
+  </ul></li>
+  <li><a href="#proporción-de-varianza-explicada-por-cada-pc." id="toc-proporción-de-varianza-explicada-por-cada-pc." class="nav-link" data-scroll-target="#proporción-de-varianza-explicada-por-cada-pc.">Proporción de varianza explicada por cada PC.</a>
+  <ul class="collapse">
+  <li><a href="#matriz-de-cargas." id="toc-matriz-de-cargas." class="nav-link" data-scroll-target="#matriz-de-cargas.">Matriz de Cargas.</a></li>
+  <li><a href="#datos-transformados.-primeros-registros." id="toc-datos-transformados.-primeros-registros." class="nav-link" data-scroll-target="#datos-transformados.-primeros-registros.">Datos Transformados. Primeros Registros.</a></li>
+  <li><a href="#biplot." id="toc-biplot." class="nav-link" data-scroll-target="#biplot.">Biplot.</a></li>
+  <li><a href="#gráfico-de-variables." id="toc-gráfico-de-variables." class="nav-link" data-scroll-target="#gráfico-de-variables.">Gráfico de Variables.</a></li>
+  <li><a href="#coordenadas-de-las-variables-en-los-pc." id="toc-coordenadas-de-las-variables-en-los-pc." class="nav-link" data-scroll-target="#coordenadas-de-las-variables-en-los-pc.">Coordenadas de las variables en los PC.</a></li>
+  <li><a href="#calidad-de-la-representación-de-cada-variable-en-cada-pc." id="toc-calidad-de-la-representación-de-cada-variable-en-cada-pc." class="nav-link" data-scroll-target="#calidad-de-la-representación-de-cada-variable-en-cada-pc.">Calidad de la representación de cada variable en cada PC.</a></li>
+  <li><a href="#contribución-de-cada-variable-a-cda-pc." id="toc-contribución-de-cada-variable-a-cda-pc." class="nav-link" data-scroll-target="#contribución-de-cada-variable-a-cda-pc.">Contribución de cada variable a cda PC.</a></li>
+  <li><a href="#contribución-de-las-variables." id="toc-contribución-de-las-variables." class="nav-link" data-scroll-target="#contribución-de-las-variables.">Contribución de las variables.</a></li>
+  <li><a href="#contribución-de-los-individuos." id="toc-contribución-de-los-individuos." class="nav-link" data-scroll-target="#contribución-de-los-individuos.">Contribución de los individuos.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabajo Práctico PCA</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Autores/as</div>
+  <div class="quarto-title-meta-heading">Afiliación</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Miguel Garrone </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Universidad Austral
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Lucía Tamplin </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Milagros Terán </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Martín Ceriotti </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>Trabajo práctico entregable para la materia “Introducción a Data Mining”.</p>
+</section>
+<section id="descripción-del-dataset." class="level2">
+<h2 class="anchored" data-anchor-id="descripción-del-dataset.">Descripción del dataset.</h2>
+<p>Los datos del archivo corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.</p>
+<section id="variables-cuantitativas" class="level3">
+<h3 class="anchored" data-anchor-id="variables-cuantitativas">Variables cuantitativas</h3>
+<ol type="1">
+<li><p>DIAMTAL Diámetro del tallo (mm)</p></li>
+<li><p>ALTPL Altura de planta (cm)</p></li>
+<li><p>LONGHO Longitud de la hoja (mm)</p></li>
+<li><p>ANCHOHO Ancho de la hoja (mm)</p></li>
+<li><p>LONGPEC Longitud del peciolo (mm)</p></li>
+<li><p>LONGPAN Longitud de la panoja (cm)</p></li>
+<li><p>LONGGLO Longitud del glomérulo (mm)</p></li>
+<li><p>DSBF Días desde siembra a botón floral (días)</p></li>
+<li><p>DSFL Días desde siembra a floración (días)</p></li>
+<li><p>DSMF Días desde siembra a madurez fisiológica (días)</p></li>
+</ol>
+</section>
+<section id="variables-cualitativas" class="level3">
+<h3 class="anchored" data-anchor-id="variables-cualitativas">Variables cualitativas</h3>
+<ol type="1">
+<li><p>AX Presencia de axilas: Si – No</p></li>
+<li><p>CEstrias Color de las estrías: amarilla, rojas, purpuras, no (no tiene estrías)</p></li>
+<li><p>CTallo Color del tallo: rojo, púrpura, verde</p></li>
+<li><p>PoRAMA Presencia de ramas Si – No</p></li>
+<li><p>CFA Color de panoja a fin de antesis: Blanca – Púrpura – Gris</p></li>
+<li><p>Cco Color de la panoja a la cosecha: amarilla, blanca, púrpura, marrón</p></li>
+<li><p>TP Tipo de panoja: Diferenciada y terminal – No diferenciada</p></li>
+<li><p>FP Forma de panoja: Glomerulada – Amarantiforme</p></li>
+</ol>
+</section>
+<section id="zona" class="level3">
+<h3 class="anchored" data-anchor-id="zona">Zona</h3>
+<p>Agregamos una columna al dataset llamada “zona” con el dato de origen de los individuos. Los valores pueden ser:</p>
+<ul>
+<li><p>AL Altiplano</p></li>
+<li><p>VA Valles de altura</p></li>
+<li><p>VH Valles húmedos</p></li>
+<li><p>VS Valles secos</p></li>
+</ul>
+</section>
+</section>
+<section id="análisis-descriptivo." class="level2">
+<h2 class="anchored" data-anchor-id="análisis-descriptivo.">Análisis Descriptivo.</h2>
+<section id="tabla." class="level3">
+<h3 class="anchored" data-anchor-id="tabla.">Tabla.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">DIAMTAL</th>
+<th style="text-align: left;">ALTPL</th>
+<th style="text-align: left;">LONGHO</th>
+<th style="text-align: left;">ANCHOHO</th>
+<th style="text-align: left;">LONGPEC</th>
+<th style="text-align: left;">LONGPAN</th>
+<th style="text-align: left;">LONGGLO</th>
+<th style="text-align: left;">DSBF</th>
+<th style="text-align: left;">DSFL</th>
+<th style="text-align: left;">DSMF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">nbr.val</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+<td style="text-align: left;">24.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nbr.null</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nbr.na</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">min</td>
+<td style="text-align: left;">2.80</td>
+<td style="text-align: left;">23.20</td>
+<td style="text-align: left;">33.30</td>
+<td style="text-align: left;">26.39</td>
+<td style="text-align: left;">16.45</td>
+<td style="text-align: left;">50.74</td>
+<td style="text-align: left;">5.12</td>
+<td style="text-align: left;">18.00</td>
+<td style="text-align: left;">33.00</td>
+<td style="text-align: left;">88.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">max</td>
+<td style="text-align: left;">8.45</td>
+<td style="text-align: left;">173.10</td>
+<td style="text-align: left;">94.41</td>
+<td style="text-align: left;">73.25</td>
+<td style="text-align: left;">56.31</td>
+<td style="text-align: left;">560.00</td>
+<td style="text-align: left;">11.89</td>
+<td style="text-align: left;">71.00</td>
+<td style="text-align: left;">95.00</td>
+<td style="text-align: left;">217.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">range</td>
+<td style="text-align: left;">5.65</td>
+<td style="text-align: left;">149.90</td>
+<td style="text-align: left;">61.11</td>
+<td style="text-align: left;">46.86</td>
+<td style="text-align: left;">39.87</td>
+<td style="text-align: left;">509.26</td>
+<td style="text-align: left;">6.77</td>
+<td style="text-align: left;">53.00</td>
+<td style="text-align: left;">62.00</td>
+<td style="text-align: left;">129.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sum</td>
+<td style="text-align: left;">137.49</td>
+<td style="text-align: left;">2480.93</td>
+<td style="text-align: left;">1513.04</td>
+<td style="text-align: left;">1249.71</td>
+<td style="text-align: left;">856.63</td>
+<td style="text-align: left;">6637.15</td>
+<td style="text-align: left;">217.65</td>
+<td style="text-align: left;">1000.00</td>
+<td style="text-align: left;">1527.00</td>
+<td style="text-align: left;">3716.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">median</td>
+<td style="text-align: left;">6.15</td>
+<td style="text-align: left;">103.50</td>
+<td style="text-align: left;">65.59</td>
+<td style="text-align: left;">54.38</td>
+<td style="text-align: left;">35.49</td>
+<td style="text-align: left;">306.50</td>
+<td style="text-align: left;">9.39</td>
+<td style="text-align: left;">39.00</td>
+<td style="text-align: left;">68.00</td>
+<td style="text-align: left;">162.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mean</td>
+<td style="text-align: left;">5.73</td>
+<td style="text-align: left;">103.37</td>
+<td style="text-align: left;">63.04</td>
+<td style="text-align: left;">52.07</td>
+<td style="text-align: left;">35.69</td>
+<td style="text-align: left;">276.55</td>
+<td style="text-align: left;">9.07</td>
+<td style="text-align: left;">41.67</td>
+<td style="text-align: left;">63.62</td>
+<td style="text-align: left;">154.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SE.mean</td>
+<td style="text-align: left;">0.35</td>
+<td style="text-align: left;">10.72</td>
+<td style="text-align: left;">3.30</td>
+<td style="text-align: left;">3.00</td>
+<td style="text-align: left;">2.18</td>
+<td style="text-align: left;">25.50</td>
+<td style="text-align: left;">0.46</td>
+<td style="text-align: left;">3.49</td>
+<td style="text-align: left;">3.78</td>
+<td style="text-align: left;">6.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CI.mean.0.95</td>
+<td style="text-align: left;">0.72</td>
+<td style="text-align: left;">22.17</td>
+<td style="text-align: left;">6.83</td>
+<td style="text-align: left;">6.21</td>
+<td style="text-align: left;">4.50</td>
+<td style="text-align: left;">52.75</td>
+<td style="text-align: left;">0.94</td>
+<td style="text-align: left;">7.21</td>
+<td style="text-align: left;">7.82</td>
+<td style="text-align: left;">12.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">var</td>
+<td style="text-align: left;">2.87</td>
+<td style="text-align: left;">2755.97</td>
+<td style="text-align: left;">261.75</td>
+<td style="text-align: left;">216.27</td>
+<td style="text-align: left;">113.54</td>
+<td style="text-align: left;">15604.14</td>
+<td style="text-align: left;">5.00</td>
+<td style="text-align: left;">291.62</td>
+<td style="text-align: left;">342.77</td>
+<td style="text-align: left;">899.19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">std.dev</td>
+<td style="text-align: left;">1.69</td>
+<td style="text-align: left;">52.50</td>
+<td style="text-align: left;">16.18</td>
+<td style="text-align: left;">14.71</td>
+<td style="text-align: left;">10.66</td>
+<td style="text-align: left;">124.92</td>
+<td style="text-align: left;">2.24</td>
+<td style="text-align: left;">17.08</td>
+<td style="text-align: left;">18.51</td>
+<td style="text-align: left;">29.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">coef.var</td>
+<td style="text-align: left;">0.30</td>
+<td style="text-align: left;">0.51</td>
+<td style="text-align: left;">0.26</td>
+<td style="text-align: left;">0.28</td>
+<td style="text-align: left;">0.30</td>
+<td style="text-align: left;">0.45</td>
+<td style="text-align: left;">0.25</td>
+<td style="text-align: left;">0.41</td>
+<td style="text-align: left;">0.29</td>
+<td style="text-align: left;">0.19</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="matriz-de-dispersión." class="level3">
+<h3 class="anchored" data-anchor-id="matriz-de-dispersión.">Matriz de Dispersión.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vemos distribuciones poco campanulares y altas correlaciones para algunas de las variables.</p>
+</section>
+<section id="boxplots." class="level3">
+<h3 class="anchored" data-anchor-id="boxplots.">Boxplots.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se observan distribuciones muy distintas.</p>
+</section>
+</section>
+<section id="proporción-de-varianza-explicada-por-cada-pc." class="level2">
+<h2 class="anchored" data-anchor-id="proporción-de-varianza-explicada-por-cada-pc.">Proporción de varianza explicada por cada PC.</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
+<caption>Proporción de varianza explicada por cada PC</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC1</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC2</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC3</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC4</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC5</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC6</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC7</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC8</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC9</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;">PC10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Standard deviation</td>
+<td style="text-align: right;">2.609</td>
+<td style="text-align: right;">1.150</td>
+<td style="text-align: right;">0.863</td>
+<td style="text-align: right;">0.665</td>
+<td style="text-align: right;">0.521</td>
+<td style="text-align: right;">0.474</td>
+<td style="text-align: right;">0.308</td>
+<td style="text-align: right;">0.227</td>
+<td style="text-align: right;">0.159</td>
+<td style="text-align: right;">0.120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Proportion of Variance</td>
+<td style="text-align: right;">0.681</td>
+<td style="text-align: right;">0.132</td>
+<td style="text-align: right;">0.074</td>
+<td style="text-align: right;">0.044</td>
+<td style="text-align: right;">0.027</td>
+<td style="text-align: right;">0.022</td>
+<td style="text-align: right;">0.010</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cumulative Proportion</td>
+<td style="text-align: right;">0.681</td>
+<td style="text-align: right;">0.813</td>
+<td style="text-align: right;">0.888</td>
+<td style="text-align: right;">0.932</td>
+<td style="text-align: right;">0.959</td>
+<td style="text-align: right;">0.981</td>
+<td style="text-align: right;">0.991</td>
+<td style="text-align: right;">0.996</td>
+<td style="text-align: right;">0.999</td>
+<td style="text-align: right;">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Tenemos dos componentes con desvío mayor a 1. Las dos primeras componentes explican el 81% de la variabilidad de los datos.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="matriz-de-cargas." class="level3">
+<h3 class="anchored" data-anchor-id="matriz-de-cargas.">Matriz de Cargas.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+<th style="text-align: right;">PC3</th>
+<th style="text-align: right;">PC4</th>
+<th style="text-align: right;">PC5</th>
+<th style="text-align: right;">PC6</th>
+<th style="text-align: right;">PC7</th>
+<th style="text-align: right;">PC8</th>
+<th style="text-align: right;">PC9</th>
+<th style="text-align: right;">PC10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIAMTAL</td>
+<td style="text-align: right;">0.3532707</td>
+<td style="text-align: right;">0.0446199</td>
+<td style="text-align: right;">-0.3083325</td>
+<td style="text-align: right;">0.2927034</td>
+<td style="text-align: right;">-0.2354113</td>
+<td style="text-align: right;">-0.1816724</td>
+<td style="text-align: right;">0.1231521</td>
+<td style="text-align: right;">0.0573555</td>
+<td style="text-align: right;">0.7635378</td>
+<td style="text-align: right;">0.0509435</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ALTPL</td>
+<td style="text-align: right;">0.3705121</td>
+<td style="text-align: right;">-0.0662559</td>
+<td style="text-align: right;">-0.1290653</td>
+<td style="text-align: right;">0.0627101</td>
+<td style="text-align: right;">-0.2164529</td>
+<td style="text-align: right;">0.2234864</td>
+<td style="text-align: right;">0.2112226</td>
+<td style="text-align: right;">0.4115485</td>
+<td style="text-align: right;">-0.2775036</td>
+<td style="text-align: right;">-0.6707810</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGHO</td>
+<td style="text-align: right;">0.2796666</td>
+<td style="text-align: right;">0.5237104</td>
+<td style="text-align: right;">0.1699598</td>
+<td style="text-align: right;">-0.1907599</td>
+<td style="text-align: right;">0.0708425</td>
+<td style="text-align: right;">-0.3920348</td>
+<td style="text-align: right;">-0.5587679</td>
+<td style="text-align: right;">-0.0623891</td>
+<td style="text-align: right;">0.0269288</td>
+<td style="text-align: right;">-0.3266333</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANCHOHO</td>
+<td style="text-align: right;">0.3168600</td>
+<td style="text-align: right;">0.3684130</td>
+<td style="text-align: right;">0.1292415</td>
+<td style="text-align: right;">-0.3625181</td>
+<td style="text-align: right;">-0.3182096</td>
+<td style="text-align: right;">-0.1916510</td>
+<td style="text-align: right;">0.5364573</td>
+<td style="text-align: right;">-0.0218575</td>
+<td style="text-align: right;">-0.2302147</td>
+<td style="text-align: right;">0.3694569</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGPEC</td>
+<td style="text-align: right;">0.3063233</td>
+<td style="text-align: right;">0.3126802</td>
+<td style="text-align: right;">-0.2706768</td>
+<td style="text-align: right;">-0.2332349</td>
+<td style="text-align: right;">0.4361524</td>
+<td style="text-align: right;">0.6694692</td>
+<td style="text-align: right;">-0.0480479</td>
+<td style="text-align: right;">-0.0572888</td>
+<td style="text-align: right;">0.1157301</td>
+<td style="text-align: right;">0.1527439</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LONGPAN</td>
+<td style="text-align: right;">0.3378360</td>
+<td style="text-align: right;">0.0024264</td>
+<td style="text-align: right;">-0.3036510</td>
+<td style="text-align: right;">0.5417144</td>
+<td style="text-align: right;">-0.1491091</td>
+<td style="text-align: right;">-0.0187294</td>
+<td style="text-align: right;">-0.2938796</td>
+<td style="text-align: right;">-0.2215277</td>
+<td style="text-align: right;">-0.4940256</td>
+<td style="text-align: right;">0.3132366</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGGLO</td>
+<td style="text-align: right;">0.2544180</td>
+<td style="text-align: right;">0.0662161</td>
+<td style="text-align: right;">0.7585997</td>
+<td style="text-align: right;">0.4793186</td>
+<td style="text-align: right;">0.2145607</td>
+<td style="text-align: right;">0.1791117</td>
+<td style="text-align: right;">0.1785646</td>
+<td style="text-align: right;">-0.0879904</td>
+<td style="text-align: right;">0.0883217</td>
+<td style="text-align: right;">-0.0110189</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSBF</td>
+<td style="text-align: right;">0.2892518</td>
+<td style="text-align: right;">-0.4519568</td>
+<td style="text-align: right;">0.1982872</td>
+<td style="text-align: right;">-0.3469671</td>
+<td style="text-align: right;">-0.4123121</td>
+<td style="text-align: right;">0.2455744</td>
+<td style="text-align: right;">-0.2173107</td>
+<td style="text-align: right;">-0.5055246</td>
+<td style="text-align: right;">0.1151709</td>
+<td style="text-align: right;">-0.0775435</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DSFL</td>
+<td style="text-align: right;">0.3258912</td>
+<td style="text-align: right;">-0.3882054</td>
+<td style="text-align: right;">0.1778850</td>
+<td style="text-align: right;">-0.1865774</td>
+<td style="text-align: right;">0.1319065</td>
+<td style="text-align: right;">-0.1025760</td>
+<td style="text-align: right;">-0.2931304</td>
+<td style="text-align: right;">0.6413276</td>
+<td style="text-align: right;">0.0046623</td>
+<td style="text-align: right;">0.3891887</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSMF</td>
+<td style="text-align: right;">0.3110299</td>
+<td style="text-align: right;">-0.3556552</td>
+<td style="text-align: right;">-0.1754400</td>
+<td style="text-align: right;">-0.0989280</td>
+<td style="text-align: right;">0.5878387</td>
+<td style="text-align: right;">-0.4185430</td>
+<td style="text-align: right;">0.2941124</td>
+<td style="text-align: right;">-0.3098597</td>
+<td style="text-align: right;">-0.0879560</td>
+<td style="text-align: right;">-0.1588075</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>La PC1 es una <strong><em>componentes de tamaño</em></strong>, dado que todas las variables tienen el mismo signo. Se consideran scores naturales. El resto de las <strong><em>componentes son de forma</em>.</strong></p>
+</section>
+<section id="datos-transformados.-primeros-registros." class="level3">
+<h3 class="anchored" data-anchor-id="datos-transformados.-primeros-registros.">Datos Transformados. Primeros Registros.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+<th style="text-align: right;">PC3</th>
+<th style="text-align: right;">PC4</th>
+<th style="text-align: right;">PC5</th>
+<th style="text-align: right;">PC6</th>
+<th style="text-align: right;">PC7</th>
+<th style="text-align: right;">PC8</th>
+<th style="text-align: right;">PC9</th>
+<th style="text-align: right;">PC10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-3.9745861</td>
+<td style="text-align: right;">-0.2279728</td>
+<td style="text-align: right;">0.0078620</td>
+<td style="text-align: right;">0.7814938</td>
+<td style="text-align: right;">-0.3806354</td>
+<td style="text-align: right;">-0.2438852</td>
+<td style="text-align: right;">0.3593992</td>
+<td style="text-align: right;">0.1827758</td>
+<td style="text-align: right;">0.0917020</td>
+<td style="text-align: right;">0.0873882</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-4.8306617</td>
+<td style="text-align: right;">-0.0592071</td>
+<td style="text-align: right;">-0.4299303</td>
+<td style="text-align: right;">0.0973235</td>
+<td style="text-align: right;">-1.0333792</td>
+<td style="text-align: right;">0.1423518</td>
+<td style="text-align: right;">-0.0835319</td>
+<td style="text-align: right;">0.3472538</td>
+<td style="text-align: right;">-0.1106629</td>
+<td style="text-align: right;">0.1491366</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-3.3478748</td>
+<td style="text-align: right;">1.5507594</td>
+<td style="text-align: right;">0.1056715</td>
+<td style="text-align: right;">-1.0204283</td>
+<td style="text-align: right;">0.6658868</td>
+<td style="text-align: right;">0.1353006</td>
+<td style="text-align: right;">0.0048937</td>
+<td style="text-align: right;">-0.2723893</td>
+<td style="text-align: right;">-0.0044452</td>
+<td style="text-align: right;">-0.1749756</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-3.3711773</td>
+<td style="text-align: right;">0.3580409</td>
+<td style="text-align: right;">-0.3813560</td>
+<td style="text-align: right;">-0.2610392</td>
+<td style="text-align: right;">0.3336417</td>
+<td style="text-align: right;">0.2896067</td>
+<td style="text-align: right;">-0.0298567</td>
+<td style="text-align: right;">-0.0131542</td>
+<td style="text-align: right;">-0.1735585</td>
+<td style="text-align: right;">0.1924938</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-3.5941411</td>
+<td style="text-align: right;">0.2505362</td>
+<td style="text-align: right;">-0.3411021</td>
+<td style="text-align: right;">-0.3031739</td>
+<td style="text-align: right;">-0.3066508</td>
+<td style="text-align: right;">-0.4891390</td>
+<td style="text-align: right;">-0.2470922</td>
+<td style="text-align: right;">0.1274552</td>
+<td style="text-align: right;">0.0348763</td>
+<td style="text-align: right;">-0.2914769</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2.9982846</td>
+<td style="text-align: right;">1.9193568</td>
+<td style="text-align: right;">1.6618758</td>
+<td style="text-align: right;">0.2640381</td>
+<td style="text-align: right;">0.3613012</td>
+<td style="text-align: right;">0.7534734</td>
+<td style="text-align: right;">-0.1896158</td>
+<td style="text-align: right;">-0.0946426</td>
+<td style="text-align: right;">-0.0904657</td>
+<td style="text-align: right;">0.0485849</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.0886875</td>
+<td style="text-align: right;">0.5408966</td>
+<td style="text-align: right;">-1.5992323</td>
+<td style="text-align: right;">-0.8815551</td>
+<td style="text-align: right;">0.2931722</td>
+<td style="text-align: right;">-0.2135011</td>
+<td style="text-align: right;">0.4978875</td>
+<td style="text-align: right;">-0.0755876</td>
+<td style="text-align: right;">0.0736608</td>
+<td style="text-align: right;">-0.0659753</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-1.6350310</td>
+<td style="text-align: right;">-1.9022336</td>
+<td style="text-align: right;">-0.2600080</td>
+<td style="text-align: right;">0.0860410</td>
+<td style="text-align: right;">-0.0552535</td>
+<td style="text-align: right;">0.2194345</td>
+<td style="text-align: right;">-0.3185795</td>
+<td style="text-align: right;">-0.2909190</td>
+<td style="text-align: right;">0.0580587</td>
+<td style="text-align: right;">-0.0008733</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-2.4858655</td>
+<td style="text-align: right;">-2.4674693</td>
+<td style="text-align: right;">0.2845913</td>
+<td style="text-align: right;">0.1825842</td>
+<td style="text-align: right;">-0.1164931</td>
+<td style="text-align: right;">-0.1664109</td>
+<td style="text-align: right;">-0.1258350</td>
+<td style="text-align: right;">-0.3188013</td>
+<td style="text-align: right;">0.2114186</td>
+<td style="text-align: right;">0.0534808</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.6539876</td>
+<td style="text-align: right;">-1.6463619</td>
+<td style="text-align: right;">-0.8228003</td>
+<td style="text-align: right;">0.1365988</td>
+<td style="text-align: right;">1.4228396</td>
+<td style="text-align: right;">-0.8084001</td>
+<td style="text-align: right;">0.0367260</td>
+<td style="text-align: right;">0.1116870</td>
+<td style="text-align: right;">-0.1924400</td>
+<td style="text-align: right;">0.0913011</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.4987546</td>
+<td style="text-align: right;">-1.0145723</td>
+<td style="text-align: right;">0.4942243</td>
+<td style="text-align: right;">0.7982202</td>
+<td style="text-align: right;">0.6485870</td>
+<td style="text-align: right;">0.3737898</td>
+<td style="text-align: right;">0.1104662</td>
+<td style="text-align: right;">0.2071232</td>
+<td style="text-align: right;">0.0633441</td>
+<td style="text-align: right;">-0.0718044</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.8300396</td>
+<td style="text-align: right;">-0.6935208</td>
+<td style="text-align: right;">1.1189231</td>
+<td style="text-align: right;">-0.8121879</td>
+<td style="text-align: right;">0.1135650</td>
+<td style="text-align: right;">0.1135242</td>
+<td style="text-align: right;">-0.0506352</td>
+<td style="text-align: right;">0.0449409</td>
+<td style="text-align: right;">-0.0425289</td>
+<td style="text-align: right;">-0.0057789</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.2380849</td>
+<td style="text-align: right;">-0.4586474</td>
+<td style="text-align: right;">0.2044347</td>
+<td style="text-align: right;">-1.3336215</td>
+<td style="text-align: right;">-0.4134585</td>
+<td style="text-align: right;">-0.2008580</td>
+<td style="text-align: right;">0.0698292</td>
+<td style="text-align: right;">0.1140122</td>
+<td style="text-align: right;">0.2486854</td>
+<td style="text-align: right;">0.1286663</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.9344850</td>
+<td style="text-align: right;">-0.9495409</td>
+<td style="text-align: right;">0.9104201</td>
+<td style="text-align: right;">0.1661029</td>
+<td style="text-align: right;">-0.4416601</td>
+<td style="text-align: right;">0.2380238</td>
+<td style="text-align: right;">0.5365139</td>
+<td style="text-align: right;">-0.1049755</td>
+<td style="text-align: right;">0.0856972</td>
+<td style="text-align: right;">-0.1199932</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2.8462685</td>
+<td style="text-align: right;">-0.6638241</td>
+<td style="text-align: right;">0.4165674</td>
+<td style="text-align: right;">-1.2758943</td>
+<td style="text-align: right;">0.0415834</td>
+<td style="text-align: right;">0.4962081</td>
+<td style="text-align: right;">-0.3403986</td>
+<td style="text-align: right;">0.1636443</td>
+<td style="text-align: right;">-0.1661510</td>
+<td style="text-align: right;">0.0994318</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.5528073</td>
+<td style="text-align: right;">-0.5444006</td>
+<td style="text-align: right;">0.8484510</td>
+<td style="text-align: right;">0.3719030</td>
+<td style="text-align: right;">-0.1362422</td>
+<td style="text-align: right;">0.1691366</td>
+<td style="text-align: right;">0.6742160</td>
+<td style="text-align: right;">0.2398510</td>
+<td style="text-align: right;">-0.2414627</td>
+<td style="text-align: right;">-0.1291202</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.6844101</td>
+<td style="text-align: right;">0.2261185</td>
+<td style="text-align: right;">-1.1378724</td>
+<td style="text-align: right;">-0.3647271</td>
+<td style="text-align: right;">-0.7516986</td>
+<td style="text-align: right;">-0.1697146</td>
+<td style="text-align: right;">-0.1945269</td>
+<td style="text-align: right;">0.0680378</td>
+<td style="text-align: right;">-0.2288583</td>
+<td style="text-align: right;">-0.1395614</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.0941749</td>
+<td style="text-align: right;">0.9569303</td>
+<td style="text-align: right;">-0.7187556</td>
+<td style="text-align: right;">1.0407405</td>
+<td style="text-align: right;">0.5779358</td>
+<td style="text-align: right;">0.0273047</td>
+<td style="text-align: right;">-0.2565945</td>
+<td style="text-align: right;">0.2563331</td>
+<td style="text-align: right;">0.0760389</td>
+<td style="text-align: right;">-0.0309048</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.0196694</td>
+<td style="text-align: right;">1.5523056</td>
+<td style="text-align: right;">0.7462039</td>
+<td style="text-align: right;">0.1555002</td>
+<td style="text-align: right;">-0.1361176</td>
+<td style="text-align: right;">-0.7533346</td>
+<td style="text-align: right;">0.4362300</td>
+<td style="text-align: right;">-0.4466884</td>
+<td style="text-align: right;">-0.0881686</td>
+<td style="text-align: right;">0.1442979</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.4753205</td>
+<td style="text-align: right;">1.3791194</td>
+<td style="text-align: right;">1.0875623</td>
+<td style="text-align: right;">0.2797185</td>
+<td style="text-align: right;">-0.1078155</td>
+<td style="text-align: right;">-1.1816408</td>
+<td style="text-align: right;">-0.4098227</td>
+<td style="text-align: right;">0.1117001</td>
+<td style="text-align: right;">0.1757272</td>
+<td style="text-align: right;">0.0310657</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3.2059844</td>
+<td style="text-align: right;">0.0410943</td>
+<td style="text-align: right;">-0.8999374</td>
+<td style="text-align: right;">0.9553742</td>
+<td style="text-align: right;">-0.6038799</td>
+<td style="text-align: right;">0.0147480</td>
+<td style="text-align: right;">-0.2446242</td>
+<td style="text-align: right;">-0.4446834</td>
+<td style="text-align: right;">-0.2671061</td>
+<td style="text-align: right;">0.0095854</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2.9318663</td>
+<td style="text-align: right;">1.6157206</td>
+<td style="text-align: right;">-1.0754102</td>
+<td style="text-align: right;">0.1405678</td>
+<td style="text-align: right;">-0.0445990</td>
+<td style="text-align: right;">0.4092696</td>
+<td style="text-align: right;">0.1911402</td>
+<td style="text-align: right;">0.2043631</td>
+<td style="text-align: right;">0.1967831</td>
+<td style="text-align: right;">0.1117584</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.8505430</td>
+<td style="text-align: right;">0.3206941</td>
+<td style="text-align: right;">-1.0387926</td>
+<td style="text-align: right;">0.3778099</td>
+<td style="text-align: right;">0.0878383</td>
+<td style="text-align: right;">0.8419654</td>
+<td style="text-align: right;">-0.0416435</td>
+<td style="text-align: right;">-0.2129778</td>
+<td style="text-align: right;">0.2546536</td>
+<td style="text-align: right;">-0.0130419</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.5074226</td>
+<td style="text-align: right;">-0.0838218</td>
+<td style="text-align: right;">0.8184099</td>
+<td style="text-align: right;">0.4186106</td>
+<td style="text-align: right;">-0.0184677</td>
+<td style="text-align: right;">0.0027471</td>
+<td style="text-align: right;">-0.3845454</td>
+<td style="text-align: right;">0.0956415</td>
+<td style="text-align: right;">0.0352019</td>
+<td style="text-align: right;">-0.1036850</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="biplot." class="level3">
+<h3 class="anchored" data-anchor-id="biplot.">Biplot.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="gráfico-de-variables." class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-de-variables.">Gráfico de Variables.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Cada vector representa una variables original. La dirección y longitud indican la importancia y la correlación de la vaariable con los componentes principales.</p>
+<p>El ángulo entre vectores indica correlación entre variables.</p>
+</section>
+<section id="coordenadas-de-las-variables-en-los-pc." class="level3">
+<h3 class="anchored" data-anchor-id="coordenadas-de-las-variables-en-los-pc.">Coordenadas de las variables en los PC.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="fu">get_pca_var</span>(mundoPca)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var<span class="sc">$</span>coord)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Dim.1</th>
+<th style="text-align: right;">Dim.2</th>
+<th style="text-align: right;">Dim.3</th>
+<th style="text-align: right;">Dim.4</th>
+<th style="text-align: right;">Dim.5</th>
+<th style="text-align: right;">Dim.6</th>
+<th style="text-align: right;">Dim.7</th>
+<th style="text-align: right;">Dim.8</th>
+<th style="text-align: right;">Dim.9</th>
+<th style="text-align: right;">Dim.10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIAMTAL</td>
+<td style="text-align: right;">0.9218378</td>
+<td style="text-align: right;">0.0513025</td>
+<td style="text-align: right;">-0.2660886</td>
+<td style="text-align: right;">-0.1945984</td>
+<td style="text-align: right;">-0.1226468</td>
+<td style="text-align: right;">-0.0860351</td>
+<td style="text-align: right;">-0.0379709</td>
+<td style="text-align: right;">-0.0130332</td>
+<td style="text-align: right;">0.1217311</td>
+<td style="text-align: right;">0.0060914</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ALTPL</td>
+<td style="text-align: right;">0.9668281</td>
+<td style="text-align: right;">-0.0761788</td>
+<td style="text-align: right;">-0.1113823</td>
+<td style="text-align: right;">-0.0416917</td>
+<td style="text-align: right;">-0.1127697</td>
+<td style="text-align: right;">0.1058371</td>
+<td style="text-align: right;">-0.0651253</td>
+<td style="text-align: right;">-0.0935182</td>
+<td style="text-align: right;">-0.0442425</td>
+<td style="text-align: right;">-0.0802065</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGHO</td>
+<td style="text-align: right;">0.7297725</td>
+<td style="text-align: right;">0.6021445</td>
+<td style="text-align: right;">0.1466740</td>
+<td style="text-align: right;">0.1268231</td>
+<td style="text-align: right;">0.0369082</td>
+<td style="text-align: right;">-0.1856571</td>
+<td style="text-align: right;">0.1722823</td>
+<td style="text-align: right;">0.0141770</td>
+<td style="text-align: right;">0.0042933</td>
+<td style="text-align: right;">-0.0390562</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANCHOHO</td>
+<td style="text-align: right;">0.8268263</td>
+<td style="text-align: right;">0.4235888</td>
+<td style="text-align: right;">0.1115344</td>
+<td style="text-align: right;">0.2410134</td>
+<td style="text-align: right;">-0.1657838</td>
+<td style="text-align: right;">-0.0907607</td>
+<td style="text-align: right;">-0.1654034</td>
+<td style="text-align: right;">0.0049668</td>
+<td style="text-align: right;">-0.0367032</td>
+<td style="text-align: right;">0.0441766</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGPEC</td>
+<td style="text-align: right;">0.7993316</td>
+<td style="text-align: right;">0.3595091</td>
+<td style="text-align: right;">-0.2335920</td>
+<td style="text-align: right;">0.1550618</td>
+<td style="text-align: right;">0.2272308</td>
+<td style="text-align: right;">0.3170426</td>
+<td style="text-align: right;">0.0148144</td>
+<td style="text-align: right;">0.0130180</td>
+<td style="text-align: right;">0.0184509</td>
+<td style="text-align: right;">0.0182639</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LONGPAN</td>
+<td style="text-align: right;">0.8815620</td>
+<td style="text-align: right;">0.0027898</td>
+<td style="text-align: right;">-0.2620485</td>
+<td style="text-align: right;">-0.3601486</td>
+<td style="text-align: right;">-0.0776843</td>
+<td style="text-align: right;">-0.0088697</td>
+<td style="text-align: right;">0.0906105</td>
+<td style="text-align: right;">0.0503389</td>
+<td style="text-align: right;">-0.0787627</td>
+<td style="text-align: right;">0.0374543</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGGLO</td>
+<td style="text-align: right;">0.6638879</td>
+<td style="text-align: right;">0.0761330</td>
+<td style="text-align: right;">0.6546657</td>
+<td style="text-align: right;">-0.3186660</td>
+<td style="text-align: right;">0.1117839</td>
+<td style="text-align: right;">0.0848225</td>
+<td style="text-align: right;">-0.0550560</td>
+<td style="text-align: right;">0.0199945</td>
+<td style="text-align: right;">0.0140812</td>
+<td style="text-align: right;">-0.0013176</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSBF</td>
+<td style="text-align: right;">0.7547846</td>
+<td style="text-align: right;">-0.5196446</td>
+<td style="text-align: right;">0.1711203</td>
+<td style="text-align: right;">0.2306745</td>
+<td style="text-align: right;">-0.2148103</td>
+<td style="text-align: right;">0.1162974</td>
+<td style="text-align: right;">0.0670024</td>
+<td style="text-align: right;">0.1148729</td>
+<td style="text-align: right;">0.0183617</td>
+<td style="text-align: right;">-0.0092720</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DSFL</td>
+<td style="text-align: right;">0.8503928</td>
+<td style="text-align: right;">-0.4463454</td>
+<td style="text-align: right;">0.1535134</td>
+<td style="text-align: right;">0.1240425</td>
+<td style="text-align: right;">0.0687219</td>
+<td style="text-align: right;">-0.0485773</td>
+<td style="text-align: right;">0.0903795</td>
+<td style="text-align: right;">-0.1457321</td>
+<td style="text-align: right;">0.0007433</td>
+<td style="text-align: right;">0.0465360</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSMF</td>
+<td style="text-align: right;">0.8116132</td>
+<td style="text-align: right;">-0.4089203</td>
+<td style="text-align: right;">-0.1514034</td>
+<td style="text-align: right;">0.0657704</td>
+<td style="text-align: right;">0.3062578</td>
+<td style="text-align: right;">-0.1982107</td>
+<td style="text-align: right;">-0.0906823</td>
+<td style="text-align: right;">0.0704110</td>
+<td style="text-align: right;">-0.0140229</td>
+<td style="text-align: right;">-0.0189889</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="calidad-de-la-representación-de-cada-variable-en-cada-pc." class="level3">
+<h3 class="anchored" data-anchor-id="calidad-de-la-representación-de-cada-variable-en-cada-pc.">Calidad de la representación de cada variable en cada PC.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(var<span class="sc">$</span>cos2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Dim.1</th>
+<th style="text-align: right;">Dim.2</th>
+<th style="text-align: right;">Dim.3</th>
+<th style="text-align: right;">Dim.4</th>
+<th style="text-align: right;">Dim.5</th>
+<th style="text-align: right;">Dim.6</th>
+<th style="text-align: right;">Dim.7</th>
+<th style="text-align: right;">Dim.8</th>
+<th style="text-align: right;">Dim.9</th>
+<th style="text-align: right;">Dim.10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIAMTAL</td>
+<td style="text-align: right;">0.8497849</td>
+<td style="text-align: right;">0.0026319</td>
+<td style="text-align: right;">0.0708031</td>
+<td style="text-align: right;">0.0378685</td>
+<td style="text-align: right;">0.0150422</td>
+<td style="text-align: right;">0.0074020</td>
+<td style="text-align: right;">0.0014418</td>
+<td style="text-align: right;">0.0001699</td>
+<td style="text-align: right;">0.0148185</td>
+<td style="text-align: right;">0.0000371</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ALTPL</td>
+<td style="text-align: right;">0.9347566</td>
+<td style="text-align: right;">0.0058032</td>
+<td style="text-align: right;">0.0124060</td>
+<td style="text-align: right;">0.0017382</td>
+<td style="text-align: right;">0.0127170</td>
+<td style="text-align: right;">0.0112015</td>
+<td style="text-align: right;">0.0042413</td>
+<td style="text-align: right;">0.0087457</td>
+<td style="text-align: right;">0.0019574</td>
+<td style="text-align: right;">0.0064331</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGHO</td>
+<td style="text-align: right;">0.5325679</td>
+<td style="text-align: right;">0.3625780</td>
+<td style="text-align: right;">0.0215133</td>
+<td style="text-align: right;">0.0160841</td>
+<td style="text-align: right;">0.0013622</td>
+<td style="text-align: right;">0.0344686</td>
+<td style="text-align: right;">0.0296812</td>
+<td style="text-align: right;">0.0002010</td>
+<td style="text-align: right;">0.0000184</td>
+<td style="text-align: right;">0.0015254</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANCHOHO</td>
+<td style="text-align: right;">0.6836417</td>
+<td style="text-align: right;">0.1794275</td>
+<td style="text-align: right;">0.0124399</td>
+<td style="text-align: right;">0.0580874</td>
+<td style="text-align: right;">0.0274843</td>
+<td style="text-align: right;">0.0082375</td>
+<td style="text-align: right;">0.0273583</td>
+<td style="text-align: right;">0.0000247</td>
+<td style="text-align: right;">0.0013471</td>
+<td style="text-align: right;">0.0019516</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGPEC</td>
+<td style="text-align: right;">0.6389311</td>
+<td style="text-align: right;">0.1292468</td>
+<td style="text-align: right;">0.0545652</td>
+<td style="text-align: right;">0.0240442</td>
+<td style="text-align: right;">0.0516339</td>
+<td style="text-align: right;">0.1005160</td>
+<td style="text-align: right;">0.0002195</td>
+<td style="text-align: right;">0.0001695</td>
+<td style="text-align: right;">0.0003404</td>
+<td style="text-align: right;">0.0003336</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LONGPAN</td>
+<td style="text-align: right;">0.7771516</td>
+<td style="text-align: right;">0.0000078</td>
+<td style="text-align: right;">0.0686694</td>
+<td style="text-align: right;">0.1297070</td>
+<td style="text-align: right;">0.0060348</td>
+<td style="text-align: right;">0.0000787</td>
+<td style="text-align: right;">0.0082103</td>
+<td style="text-align: right;">0.0025340</td>
+<td style="text-align: right;">0.0062036</td>
+<td style="text-align: right;">0.0014028</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="contribución-de-cada-variable-a-cda-pc." class="level3">
+<h3 class="anchored" data-anchor-id="contribución-de-cada-variable-a-cda-pc.">Contribución de cada variable a cda PC.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Dim.1</th>
+<th style="text-align: right;">Dim.2</th>
+<th style="text-align: right;">Dim.3</th>
+<th style="text-align: right;">Dim.4</th>
+<th style="text-align: right;">Dim.5</th>
+<th style="text-align: right;">Dim.6</th>
+<th style="text-align: right;">Dim.7</th>
+<th style="text-align: right;">Dim.8</th>
+<th style="text-align: right;">Dim.9</th>
+<th style="text-align: right;">Dim.10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DIAMTAL</td>
+<td style="text-align: right;">12.480017</td>
+<td style="text-align: right;">0.1990940</td>
+<td style="text-align: right;">9.506896</td>
+<td style="text-align: right;">8.5675295</td>
+<td style="text-align: right;">5.5418468</td>
+<td style="text-align: right;">3.300485</td>
+<td style="text-align: right;">1.5166433</td>
+<td style="text-align: right;">0.3289659</td>
+<td style="text-align: right;">58.2989987</td>
+<td style="text-align: right;">0.2595242</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ALTPL</td>
+<td style="text-align: right;">13.727919</td>
+<td style="text-align: right;">0.4389843</td>
+<td style="text-align: right;">1.665785</td>
+<td style="text-align: right;">0.3932561</td>
+<td style="text-align: right;">4.6851867</td>
+<td style="text-align: right;">4.994617</td>
+<td style="text-align: right;">4.4614972</td>
+<td style="text-align: right;">16.9372150</td>
+<td style="text-align: right;">7.7008263</td>
+<td style="text-align: right;">44.9947127</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGHO</td>
+<td style="text-align: right;">7.821340</td>
+<td style="text-align: right;">27.4272619</td>
+<td style="text-align: right;">2.888633</td>
+<td style="text-align: right;">3.6389349</td>
+<td style="text-align: right;">0.5018666</td>
+<td style="text-align: right;">15.369125</td>
+<td style="text-align: right;">31.2221520</td>
+<td style="text-align: right;">0.3892395</td>
+<td style="text-align: right;">0.0725160</td>
+<td style="text-align: right;">10.6689313</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANCHOHO</td>
+<td style="text-align: right;">10.040023</td>
+<td style="text-align: right;">13.5728169</td>
+<td style="text-align: right;">1.670337</td>
+<td style="text-align: right;">13.1419400</td>
+<td style="text-align: right;">10.1257325</td>
+<td style="text-align: right;">3.673010</td>
+<td style="text-align: right;">28.7786467</td>
+<td style="text-align: right;">0.0477752</td>
+<td style="text-align: right;">5.2998821</td>
+<td style="text-align: right;">13.6498365</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGPEC</td>
+<td style="text-align: right;">9.383399</td>
+<td style="text-align: right;">9.7768904</td>
+<td style="text-align: right;">7.326593</td>
+<td style="text-align: right;">5.4398512</td>
+<td style="text-align: right;">19.0228935</td>
+<td style="text-align: right;">44.818896</td>
+<td style="text-align: right;">0.2308603</td>
+<td style="text-align: right;">0.3282009</td>
+<td style="text-align: right;">1.3393462</td>
+<td style="text-align: right;">2.3330701</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LONGPAN</td>
+<td style="text-align: right;">11.413318</td>
+<td style="text-align: right;">0.0005887</td>
+<td style="text-align: right;">9.220394</td>
+<td style="text-align: right;">29.3454470</td>
+<td style="text-align: right;">2.2233528</td>
+<td style="text-align: right;">0.035079</td>
+<td style="text-align: right;">8.6365247</td>
+<td style="text-align: right;">4.9074529</td>
+<td style="text-align: right;">24.4061251</td>
+<td style="text-align: right;">9.8117180</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LONGGLO</td>
+<td style="text-align: right;">6.472852</td>
+<td style="text-align: right;">0.4384574</td>
+<td style="text-align: right;">57.547352</td>
+<td style="text-align: right;">22.9746367</td>
+<td style="text-align: right;">4.6036275</td>
+<td style="text-align: right;">3.208101</td>
+<td style="text-align: right;">3.1885300</td>
+<td style="text-align: right;">0.7742307</td>
+<td style="text-align: right;">0.7800714</td>
+<td style="text-align: right;">0.0121417</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSBF</td>
+<td style="text-align: right;">8.366662</td>
+<td style="text-align: right;">20.4264975</td>
+<td style="text-align: right;">3.931781</td>
+<td style="text-align: right;">12.0386155</td>
+<td style="text-align: right;">17.0001284</td>
+<td style="text-align: right;">6.030681</td>
+<td style="text-align: right;">4.7223944</td>
+<td style="text-align: right;">25.5555077</td>
+<td style="text-align: right;">1.3264342</td>
+<td style="text-align: right;">0.6012987</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DSFL</td>
+<td style="text-align: right;">10.620509</td>
+<td style="text-align: right;">15.0703434</td>
+<td style="text-align: right;">3.164309</td>
+<td style="text-align: right;">3.4811144</td>
+<td style="text-align: right;">1.7399337</td>
+<td style="text-align: right;">1.052185</td>
+<td style="text-align: right;">8.5925411</td>
+<td style="text-align: right;">41.1301064</td>
+<td style="text-align: right;">0.0021737</td>
+<td style="text-align: right;">15.1467847</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSMF</td>
+<td style="text-align: right;">9.673961</td>
+<td style="text-align: right;">12.6490654</td>
+<td style="text-align: right;">3.077921</td>
+<td style="text-align: right;">0.9786747</td>
+<td style="text-align: right;">34.5554314</td>
+<td style="text-align: right;">17.517822</td>
+<td style="text-align: right;">8.6502104</td>
+<td style="text-align: right;">9.6013059</td>
+<td style="text-align: right;">0.7736262</td>
+<td style="text-align: right;">2.5219823</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="contribución-de-las-variables." class="level3">
+<h3 class="anchored" data-anchor-id="contribución-de-las-variables.">Contribución de las variables.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="contribución-de-los-individuos." class="level3">
+<h3 class="anchored" data-anchor-id="contribución-de-los-individuos.">Contribución de los individuos.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
