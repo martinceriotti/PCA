@@ -15,11 +15,11 @@ format:
 editor: visual
 ---
 
-## Introducción
+## **Introducción**
 
 Trabajo práctico grupal para la materia "Introducción a Data Mining": Análisis de Componentes Principales (PCA)
 
-## Descripción del dataset.
+## **Descripción del dataset.**
 
 Los datos del archivo "quinoa.txt" corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.
 
@@ -324,7 +324,7 @@ fviz_contrib(mundoPca, choice = "var", axes = 1:2)  #Contribucion de las variabl
 fviz_contrib(mundoPca, choice = "ind", axes = 1:2)  #Contribucion de los individuos.
 ```
 
-## Conclusión.
+## **Conclusión.**
 
 ![](paints/interprestacion.png){fig-align="center"}
 

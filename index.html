@@ -85,8 +85,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
-  <li><a href="#descripción-del-dataset." id="toc-descripción-del-dataset." class="nav-link" data-scroll-target="#descripción-del-dataset.">Descripción del dataset.</a>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><strong>Introducción</strong></a></li>
+  <li><a href="#descripción-del-dataset." id="toc-descripción-del-dataset." class="nav-link" data-scroll-target="#descripción-del-dataset."><strong>Descripción del dataset.</strong></a>
   <ul class="collapse">
   <li><a href="#variables-cuantitativas" id="toc-variables-cuantitativas" class="nav-link" data-scroll-target="#variables-cuantitativas">Variables cuantitativas</a></li>
   <li><a href="#variables-cualitativas" id="toc-variables-cualitativas" class="nav-link" data-scroll-target="#variables-cualitativas">Variables cualitativas</a></li>
@@ -111,6 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#contribución-de-las-variables." id="toc-contribución-de-las-variables." class="nav-link" data-scroll-target="#contribución-de-las-variables.">Contribución de las variables.</a></li>
   <li><a href="#contribución-de-los-individuos." id="toc-contribución-de-los-individuos." class="nav-link" data-scroll-target="#contribución-de-los-individuos.">Contribución de los individuos.</a></li>
   </ul></li>
+  <li><a href="#conclusión." id="toc-conclusión." class="nav-link" data-scroll-target="#conclusión."><strong>Conclusión.</strong></a></li>
   </ul>
 </nav>
 </div>
@@ -164,11 +165,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="introducción" class="level2">
-<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<h2 class="anchored" data-anchor-id="introducción"><strong>Introducción</strong></h2>
 <p>Trabajo práctico grupal para la materia “Introducción a Data Mining”: Análisis de Componentes Principales (PCA)</p>
 </section>
 <section id="descripción-del-dataset." class="level2">
-<h2 class="anchored" data-anchor-id="descripción-del-dataset.">Descripción del dataset.</h2>
+<h2 class="anchored" data-anchor-id="descripción-del-dataset."><strong>Descripción del dataset.</strong></h2>
 <p>Los datos del archivo “quinoa.txt” corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.</p>
 <section id="variables-cuantitativas" class="level3">
 <h3 class="anchored" data-anchor-id="variables-cuantitativas">Variables cuantitativas</h3>
@@ -1551,6 +1552,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+</section>
+<section id="conclusión." class="level2">
+<h2 class="anchored" data-anchor-id="conclusión."><strong>Conclusión.</strong></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="paints/interprestacion.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<p>PC1 agrupa variables de longitud, diámetro y tamaño, las cuales están muy correlacionadas entre sí. Valores altos pueden definir tamaños de planta más grandes , mientras que valores pequeños, plantas más chicas.</p>
+<p>PC2 puede ayudar a definir otras características de las plantas, como la velocidad de desarrollo con los distintos días desde la siembra.</p>
+<ul>
+<li><p>Altiplano (AL): desarrollo más rápido de plantas, con plantas de menor tamaño.</p></li>
+<li><p>Valles de Altura (VA): plantas más pequeñas con desarrollo m</p></li>
+<li><p>Valles Húmedos (VH): Plantas más grandes y desarrolladas, con menor velocidad de desarrollo.</p></li>
+<li><p>Valles secos (VS): Plantas más grandes y desarrolladas.</p></li>
+</ul>
 </section>
 
 </main>
