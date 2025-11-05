@@ -322,6 +322,20 @@ fviz_contrib(mundoPca, choice = "var", axes = 1:2)  #Contribucion de las variabl
 #| warning: false
 #| paged-print: false
 fviz_contrib(mundoPca, choice = "ind", axes = 1:2)  #Contribucion de los individuos.
-
-
 ```
+
+## Conclusión.
+
+![](paints/interprestacion.png){fig-align="center"}
+
+PC1 agrupa variables de longitud, diámetro y tamaño, las cuales están muy correlacionadas entre sí. Valores altos pueden definir tamaños de planta más grandes , mientras que valores pequeños, plantas más chicas.
+
+PC2 puede ayudar a definir otras características de las plantas, como la velocidad de desarrollo con los distintos días desde la siembra.
+
+-   Altiplano (AL): desarrollo más rápido de plantas, con plantas de menor tamaño.
+
+-   Valles de Altura (VA): plantas más pequeñas con desarrollo m
+
+-   Valles Húmedos (VH): Plantas más grandes y desarrolladas, con menor velocidad de desarrollo.
+
+-   Valles secos (VS): Plantas más grandes y desarrolladas.

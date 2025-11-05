@@ -92,15 +92,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#variables-cualitativas" id="toc-variables-cualitativas" class="nav-link" data-scroll-target="#variables-cualitativas">Variables cualitativas</a></li>
   <li><a href="#zona" id="toc-zona" class="nav-link" data-scroll-target="#zona">Zona</a></li>
   </ul></li>
-  <li><a href="#análisis-descriptivo." id="toc-análisis-descriptivo." class="nav-link" data-scroll-target="#análisis-descriptivo.">Análisis Descriptivo.</a>
+  <li><a href="#análisis-descriptivo" id="toc-análisis-descriptivo" class="nav-link" data-scroll-target="#análisis-descriptivo"><strong>Análisis Descriptivo</strong></a>
   <ul class="collapse">
-  <li><a href="#tabla." id="toc-tabla." class="nav-link" data-scroll-target="#tabla.">Tabla.</a></li>
-  <li><a href="#matriz-de-dispersión." id="toc-matriz-de-dispersión." class="nav-link" data-scroll-target="#matriz-de-dispersión.">Matriz de Dispersión.</a></li>
-  <li><a href="#boxplots." id="toc-boxplots." class="nav-link" data-scroll-target="#boxplots.">Boxplots.</a></li>
+  <li><a href="#tabla-descriptiva-sobre-las-variables-numéricas" id="toc-tabla-descriptiva-sobre-las-variables-numéricas" class="nav-link" data-scroll-target="#tabla-descriptiva-sobre-las-variables-numéricas">Tabla descriptiva sobre las variables numéricas</a></li>
+  <li><a href="#correlación-entre-variables-distribuciones-y-gráficos-de-dispersión" id="toc-correlación-entre-variables-distribuciones-y-gráficos-de-dispersión" class="nav-link" data-scroll-target="#correlación-entre-variables-distribuciones-y-gráficos-de-dispersión">Correlación entre variables, distribuciones y gráficos de dispersión</a></li>
+  <li><a href="#boxplots-comparativos-entre-las-variables-del-conjunto-de-datos" id="toc-boxplots-comparativos-entre-las-variables-del-conjunto-de-datos" class="nav-link" data-scroll-target="#boxplots-comparativos-entre-las-variables-del-conjunto-de-datos">Boxplots comparativos entre las variables del conjunto de datos</a></li>
   </ul></li>
-  <li><a href="#proporción-de-varianza-explicada-por-cada-pc." id="toc-proporción-de-varianza-explicada-por-cada-pc." class="nav-link" data-scroll-target="#proporción-de-varianza-explicada-por-cada-pc.">Proporción de varianza explicada por cada PC.</a>
+  <li><a href="#análisis-de-componentes-principales-pca" id="toc-análisis-de-componentes-principales-pca" class="nav-link" data-scroll-target="#análisis-de-componentes-principales-pca"><strong>Análisis de Componentes Principales (PCA)</strong></a>
   <ul class="collapse">
-  <li><a href="#matriz-de-cargas." id="toc-matriz-de-cargas." class="nav-link" data-scroll-target="#matriz-de-cargas.">Matriz de Cargas.</a></li>
+  <li><a href="#proporción-de-varianza-explicada-por-cada-componente-principal" id="toc-proporción-de-varianza-explicada-por-cada-componente-principal" class="nav-link" data-scroll-target="#proporción-de-varianza-explicada-por-cada-componente-principal">Proporción de varianza explicada por cada Componente Principal</a></li>
+  <li><a href="#matriz-de-cargas" id="toc-matriz-de-cargas" class="nav-link" data-scroll-target="#matriz-de-cargas">Matriz de Cargas</a></li>
   <li><a href="#datos-transformados.-primeros-registros." id="toc-datos-transformados.-primeros-registros." class="nav-link" data-scroll-target="#datos-transformados.-primeros-registros.">Datos Transformados. Primeros Registros.</a></li>
   <li><a href="#biplot." id="toc-biplot." class="nav-link" data-scroll-target="#biplot.">Biplot.</a></li>
   <li><a href="#gráfico-de-variables." id="toc-gráfico-de-variables." class="nav-link" data-scroll-target="#gráfico-de-variables.">Gráfico de Variables.</a></li>
@@ -164,54 +165,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introducción" class="level2">
 <h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
-<p>Trabajo práctico entregable para la materia “Introducción a Data Mining”.</p>
+<p>Trabajo práctico grupal para la materia “Introducción a Data Mining”: Análisis de Componentes Principales (PCA)</p>
 </section>
 <section id="descripción-del-dataset." class="level2">
 <h2 class="anchored" data-anchor-id="descripción-del-dataset.">Descripción del dataset.</h2>
-<p>Los datos del archivo corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.</p>
+<p>Los datos del archivo “quinoa.txt” corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.</p>
 <section id="variables-cuantitativas" class="level3">
 <h3 class="anchored" data-anchor-id="variables-cuantitativas">Variables cuantitativas</h3>
 <ol type="1">
-<li><p>DIAMTAL Diámetro del tallo (mm)</p></li>
-<li><p>ALTPL Altura de planta (cm)</p></li>
-<li><p>LONGHO Longitud de la hoja (mm)</p></li>
-<li><p>ANCHOHO Ancho de la hoja (mm)</p></li>
-<li><p>LONGPEC Longitud del peciolo (mm)</p></li>
-<li><p>LONGPAN Longitud de la panoja (cm)</p></li>
-<li><p>LONGGLO Longitud del glomérulo (mm)</p></li>
-<li><p>DSBF Días desde siembra a botón floral (días)</p></li>
-<li><p>DSFL Días desde siembra a floración (días)</p></li>
-<li><p>DSMF Días desde siembra a madurez fisiológica (días)</p></li>
+<li><p><strong>DIAMTAL</strong>: Diámetro del tallo (mm)</p></li>
+<li><p><strong>ALTPL</strong>: Altura de la planta (cm)</p></li>
+<li><p><strong>LONGHO</strong>: Longitud de la hoja (mm)</p></li>
+<li><p><strong>ANCHOHO</strong>: Ancho de la hoja (mm)</p></li>
+<li><p><strong>LONGPEC</strong>: Longitud del peciolo (mm)</p></li>
+<li><p><strong>LONGPAN</strong>: Longitud de la panoja (cm)</p></li>
+<li><p><strong>LONGGLO</strong>: Longitud del glomérulo (mm)</p></li>
+<li><p><strong>DSBF</strong>: Días desde la siembra hasta el botón floral (días)</p></li>
+<li><p><strong>DSFL</strong>: Días desde la siembra hasta la floración (días)</p></li>
+<li><p><strong>DSMF</strong>: Días desde la siembra hasta la madurez fisiológica (días)</p></li>
 </ol>
 </section>
 <section id="variables-cualitativas" class="level3">
 <h3 class="anchored" data-anchor-id="variables-cualitativas">Variables cualitativas</h3>
 <ol type="1">
-<li><p>AX Presencia de axilas: Si – No</p></li>
-<li><p>CEstrias Color de las estrías: amarilla, rojas, purpuras, no (no tiene estrías)</p></li>
-<li><p>CTallo Color del tallo: rojo, púrpura, verde</p></li>
-<li><p>PoRAMA Presencia de ramas Si – No</p></li>
-<li><p>CFA Color de panoja a fin de antesis: Blanca – Púrpura – Gris</p></li>
-<li><p>Cco Color de la panoja a la cosecha: amarilla, blanca, púrpura, marrón</p></li>
-<li><p>TP Tipo de panoja: Diferenciada y terminal – No diferenciada</p></li>
-<li><p>FP Forma de panoja: Glomerulada – Amarantiforme</p></li>
+<li><p><strong>AX</strong>: Presencia de axilas (Si – No)</p></li>
+<li><p><strong>CEstrias</strong>: Color de las estrías (Amarillas – Rojas – Púrpuras – No (no tiene estrías))</p></li>
+<li><p><strong>CTallo</strong>: Color del tallo (Rojo – Púrpura – Verde)</p></li>
+<li><p><strong>PoRAMA</strong>: Presencia de ramas (Si – No)</p></li>
+<li><p><strong>CFA</strong>: Color de la panoja a fin de antesis (Blanca – Púrpura – Gris)</p></li>
+<li><p><strong>Cco</strong>: Color de la panoja a la cosecha (Amarilla – Blanca – Púrpura – Marrón)</p></li>
+<li><p><strong>TP</strong>: Tipo de panoja (Diferenciada y terminal – No diferenciada)</p></li>
+<li><p><strong>FP</strong>: Forma de la panoja (Glomerulada – Amarantiforme)</p></li>
 </ol>
 </section>
 <section id="zona" class="level3">
 <h3 class="anchored" data-anchor-id="zona">Zona</h3>
-<p>Agregamos una columna al dataset llamada “zona” con el dato de origen de los individuos. Los valores pueden ser:</p>
+<p>Se decidió agregar una columna a la base de datos llamada “zona”, para determinar en qué zona se desarrolla cada una de las plantas. Los datos fueron obtenidos de la columna “poblaciones”.</p>
 <ul>
-<li><p>AL Altiplano</p></li>
-<li><p>VA Valles de altura</p></li>
-<li><p>VH Valles húmedos</p></li>
-<li><p>VS Valles secos</p></li>
+<li><p>Altiplano (AL)</p></li>
+<li><p>Valles de Altura (VA)</p></li>
+<li><p>Valles Húmedos (VH)</p></li>
+<li><p>Valles secos (VS)</p></li>
 </ul>
 </section>
 </section>
-<section id="análisis-descriptivo." class="level2">
-<h2 class="anchored" data-anchor-id="análisis-descriptivo.">Análisis Descriptivo.</h2>
-<section id="tabla." class="level3">
-<h3 class="anchored" data-anchor-id="tabla.">Tabla.</h3>
+<section id="análisis-descriptivo" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-descriptivo"><strong>Análisis Descriptivo</strong></h2>
+<section id="tabla-descriptiva-sobre-las-variables-numéricas" class="level3">
+<h3 class="anchored" data-anchor-id="tabla-descriptiva-sobre-las-variables-numéricas">Tabla descriptiva sobre las variables numéricas</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -431,8 +432,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="matriz-de-dispersión." class="level3">
-<h3 class="anchored" data-anchor-id="matriz-de-dispersión.">Matriz de Dispersión.</h3>
+<section id="correlación-entre-variables-distribuciones-y-gráficos-de-dispersión" class="level3">
+<h3 class="anchored" data-anchor-id="correlación-entre-variables-distribuciones-y-gráficos-de-dispersión">Correlación entre variables, distribuciones y gráficos de dispersión</h3>
+<section id="en-el-gráfico-que-se-presenta-a-continuación-se-puede-ver-la-distribución-de-cada-una-de-las-variables-y-la-correlación-que-hay-entre-ellas." class="level4">
+<h4 class="anchored" data-anchor-id="en-el-gráfico-que-se-presenta-a-continuación-se-puede-ver-la-distribución-de-cada-una-de-las-variables-y-la-correlación-que-hay-entre-ellas.">En el gráfico que se presenta a continuación, se puede ver la distribución de cada una de las variables y la correlación que hay entre ellas.</h4>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -442,10 +445,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Vemos distribuciones poco campanulares y altas correlaciones para algunas de las variables.</p>
+<p>En el gráfico se pueden ver correlaciones altas entre algunas variables y distribuciones poco campanulares.</p>
 </section>
-<section id="boxplots." class="level3">
-<h3 class="anchored" data-anchor-id="boxplots.">Boxplots.</h3>
+</section>
+<section id="boxplots-comparativos-entre-las-variables-del-conjunto-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="boxplots-comparativos-entre-las-variables-del-conjunto-de-datos">Boxplots comparativos entre las variables del conjunto de datos</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -455,11 +459,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Se observan distribuciones muy distintas.</p>
+<p>En el gráfico se pueden observar distribuciones muy distintas entre las variables. Además, es posible identificar que están en escalas de medida distintas.</p>
 </section>
 </section>
-<section id="proporción-de-varianza-explicada-por-cada-pc." class="level2">
-<h2 class="anchored" data-anchor-id="proporción-de-varianza-explicada-por-cada-pc.">Proporción de varianza explicada por cada PC.</h2>
+<section id="análisis-de-componentes-principales-pca" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-de-componentes-principales-pca"><strong>Análisis de Componentes Principales (PCA)</strong></h2>
+<section id="proporción-de-varianza-explicada-por-cada-componente-principal" class="level3">
+<h3 class="anchored" data-anchor-id="proporción-de-varianza-explicada-por-cada-componente-principal">Proporción de varianza explicada por cada Componente Principal</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
@@ -523,7 +529,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>Tenemos dos componentes con desvío mayor a 1. Las dos primeras componentes explican el 81% de la variabilidad de los datos.</p>
+<p>Se pueden observar dos autovalores con desvío estándar mayores a 1. Además, se observa que las dos primeras componentes principales explican el 81,3% de la variabilidad total de los datos.</p>
+<p>A continuación, se puede observar la misma información obtenida en la tabla anterior, pero de manera gráfica:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -533,8 +540,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="matriz-de-cargas." class="level3">
-<h3 class="anchored" data-anchor-id="matriz-de-cargas.">Matriz de Cargas.</h3>
+</section>
+<section id="matriz-de-cargas" class="level3">
+<h3 class="anchored" data-anchor-id="matriz-de-cargas">Matriz de Cargas</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
