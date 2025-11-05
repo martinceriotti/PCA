@@ -77,3 +77,4 @@ knitr::kable(D)
 
 #A traspuesta por A da la identidad
 knitr::kable(t(A)%*%A)
+

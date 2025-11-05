@@ -17,63 +17,63 @@ editor: visual
 
 ## Introducción
 
-Trabajo práctico entregable para la materia "Introducción a Data Mining".
+Trabajo práctico grupal para la materia "Introducción a Data Mining": Análisis de Componentes Principales (PCA)
 
 ## Descripción del dataset.
 
-Los datos del archivo corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.
+Los datos del archivo "quinoa.txt" corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.
 
 ### Variables cuantitativas
 
-1.  DIAMTAL Diámetro del tallo (mm)
+1.  **DIAMTAL**: Diámetro del tallo (mm)
 
-2.  ALTPL Altura de planta (cm)
+2.  **ALTPL**: Altura de la planta (cm)
 
-3.  LONGHO Longitud de la hoja (mm)
+3.  **LONGHO**: Longitud de la hoja (mm)
 
-4.  ANCHOHO Ancho de la hoja (mm)
+4.  **ANCHOHO**: Ancho de la hoja (mm)
 
-5.  LONGPEC Longitud del peciolo (mm)
+5.  **LONGPEC**: Longitud del peciolo (mm)
 
-6.  LONGPAN Longitud de la panoja (cm)
+6.  **LONGPAN**: Longitud de la panoja (cm)
 
-7.  LONGGLO Longitud del glomérulo (mm)
+7.  **LONGGLO**: Longitud del glomérulo (mm)
 
-8.  DSBF Días desde siembra a botón floral (días)
+8.  **DSBF**: Días desde la siembra hasta el botón floral (días)
 
-9.  DSFL Días desde siembra a floración (días)
+9.  **DSFL**: Días desde la siembra hasta la floración (días)
 
-10. DSMF Días desde siembra a madurez fisiológica (días)
+10. **DSMF**: Días desde la siembra hasta la madurez fisiológica (días)
 
 ### Variables cualitativas
 
-1.  AX Presencia de axilas: Si – No
+1.  **AX**: Presencia de axilas (Si – No)
 
-2.  CEstrias Color de las estrías: amarilla, rojas, purpuras, no (no tiene estrías)
+2.  **CEstrias**: Color de las estrías (Amarillas – Rojas – Púrpuras – No (no tiene estrías))
 
-3.  CTallo Color del tallo: rojo, púrpura, verde
+3.  **CTallo**: Color del tallo (Rojo – Púrpura – Verde)
 
-4.  PoRAMA Presencia de ramas Si – No
+4.  **PoRAMA**: Presencia de ramas (Si – No)
 
-5.  CFA Color de panoja a fin de antesis: Blanca – Púrpura – Gris
+5.  **CFA**: Color de la panoja a fin de antesis (Blanca – Púrpura – Gris)
 
-6.  Cco Color de la panoja a la cosecha: amarilla, blanca, púrpura, marrón
+6.  **Cco**: Color de la panoja a la cosecha (Amarilla – Blanca – Púrpura – Marrón)
 
-7.  TP Tipo de panoja: Diferenciada y terminal – No diferenciada
+7.  **TP**: Tipo de panoja (Diferenciada y terminal – No diferenciada)
 
-8.  FP Forma de panoja: Glomerulada – Amarantiforme
+8.  **FP**: Forma de la panoja (Glomerulada – Amarantiforme)
 
 ### Zona
 
-Agregamos una columna al dataset llamada "zona" con el dato de origen de los individuos. Los valores pueden ser:
+Se decidió agregar una columna a la base de datos llamada "zona", para determinar en qué zona se desarrolla cada una de las plantas. Los datos fueron obtenidos de la columna "poblaciones".
 
--   AL Altiplano
+-   Altiplano (AL)
 
--   VA Valles de altura
+-   Valles de Altura (VA)
 
--   VH Valles húmedos
+-   Valles Húmedos (VH)
 
--   VS Valles secos
+-   Valles secos (VS)
 
 ```{r}
 #| message: false
@@ -126,9 +126,9 @@ res = format(res, scientific = FALSE)
 
 ```
 
-## Análisis Descriptivo.
+## **Análisis Descriptivo**
 
-### Tabla.
+### Tabla descriptiva sobre las variables numéricas
 
 ```{r}
 #| echo: false
@@ -138,7 +138,9 @@ res = format(res, scientific = FALSE)
 knitr::kable(data.frame(res),digits = 2)
 ```
 
-### Matriz de Dispersión.
+### Correlación entre variables, distribuciones y gráficos de dispersión
+
+#### En el gráfico que se presenta a continuación, se puede ver la distribución de cada una de las variables y la correlación que hay entre ellas.
 
 ```{r}
 #| echo: false
@@ -153,9 +155,9 @@ pairs.panels(datos,
 )
 ```
 
-Vemos distribuciones poco campanulares y altas correlaciones para algunas de las variables.
+En el gráfico se pueden ver correlaciones altas entre algunas variables y distribuciones poco campanulares.
 
-### Boxplots.
+### Boxplots comparativos entre las variables del conjunto de datos
 
 ```{r}
 #| echo: false
@@ -163,14 +165,16 @@ Vemos distribuciones poco campanulares y altas correlaciones para algunas de las
 #| warning: false
 #| paged-print: false
 dfInd<-stack(datos)
-names(dfInd)<-c("valor","variable")
-ggplot(dfInd, aes(x = variable, y = valor)) +
+names(dfInd)<-c("Valor","Variable")
+ggplot(dfInd, aes(x = Variable, y = Valor)) +
   geom_boxplot()+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-Se observan distribuciones muy distintas.
+En el gráfico se pueden observar distribuciones muy distintas entre las variables. Además, es posible identificar que están en escalas de medida distintas.
 
-## Proporción de varianza explicada por cada PC.
+## **Análisis de Componentes Principales (PCA)**
+
+### Proporción de varianza explicada por cada Componente Principal
 
 ```{r}
 #| echo: false
@@ -193,7 +197,9 @@ kable(imp, digits = 3, caption = "Proporción de varianza explicada por cada PC"
 
 ```
 
-Tenemos dos componentes con desvío mayor a 1. Las dos primeras componentes explican el 81% de la variabilidad de los datos.
+Se pueden observar dos autovalores con desvío estándar mayores a 1. Además, se observa que las dos primeras componentes principales explican el 81,3% de la variabilidad total de los datos.
+
+A continuación, se puede observar la misma información obtenida en la tabla anterior, pero de manera gráfica:
 
 ```{r}
 #| echo: false
@@ -201,16 +207,16 @@ Tenemos dos componentes con desvío mayor a 1. Las dos primeras componentes expl
 #| warning: false
 #| paged-print: false
 barplot(mediPca$sdev,
-        main = "Desviación estándar de los PCs",
+        main = "Desviación estándar de las Componentes Principales",
         ylab = "Desviación estándar",
-        xlab = "Componentes",
+        xlab = "Componentes Principales",
         ylim = c(0, max(mediPca$sdev) * 1.2),
         col = "steelblue")
 
 
 ```
 
-### Matriz de Cargas.
+### Matriz de Cargas
 
 ```{r}
 #| echo: false

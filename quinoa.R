@@ -51,29 +51,23 @@ datos <- read.table(paste0(masterPath, "quinoa.txt"),
   header = T
 )
 
-datos2 <- read.table(paste0(masterPath, "quinoa.txt"),
-  sep = "\t",
-  dec = ",",
-  fileEncoding = "utf8",
-  header = T
-)
-
-datos2 <- mutate(datos2, zona = substr(poblaciones, 1, 2))
+datos2 <- mutate(datos, zona = substr(poblaciones, 1, 2))
 knitr::kable(head(datos))
 str(datos)
 
-datos <- select(
-  datos, DIAMTAL,
-  ALTPL,
-  LONGHO,
-  ANCHOHO,
-  LONGPEC,
-  LONGPAN,
-  LONGGLO,
-  DSBF,
-  DSFL,
-  DSMF
-)
+datos <- datos %>%
+  select(
+    DIAMTAL,
+    ALTPL,
+    LONGHO,
+    ANCHOHO,
+    LONGPEC,
+    LONGPAN,
+    LONGGLO,
+    DSBF,
+    DSFL,
+    DSMF
+    )
 
 # Descripción de las variables
 res <- pastecs::stat.desc(datos) %>%
