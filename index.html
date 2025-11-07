@@ -86,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><strong>Introducción</strong></a></li>
-  <li><a href="#descripción-del-dataset." id="toc-descripción-del-dataset." class="nav-link" data-scroll-target="#descripción-del-dataset."><strong>Descripción del dataset.</strong></a>
+  <li><a href="#descripción-de-la-base-de-datos" id="toc-descripción-de-la-base-de-datos" class="nav-link" data-scroll-target="#descripción-de-la-base-de-datos"><strong>Descripción de la base de datos</strong></a>
   <ul class="collapse">
   <li><a href="#variables-cuantitativas" id="toc-variables-cuantitativas" class="nav-link" data-scroll-target="#variables-cuantitativas">Variables cuantitativas</a></li>
   <li><a href="#variables-cualitativas" id="toc-variables-cualitativas" class="nav-link" data-scroll-target="#variables-cualitativas">Variables cualitativas</a></li>
@@ -102,16 +102,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#proporción-de-varianza-explicada-por-cada-componente-principal" id="toc-proporción-de-varianza-explicada-por-cada-componente-principal" class="nav-link" data-scroll-target="#proporción-de-varianza-explicada-por-cada-componente-principal">Proporción de varianza explicada por cada Componente Principal</a></li>
   <li><a href="#matriz-de-cargas" id="toc-matriz-de-cargas" class="nav-link" data-scroll-target="#matriz-de-cargas">Matriz de Cargas</a></li>
-  <li><a href="#datos-transformados.-primeros-registros." id="toc-datos-transformados.-primeros-registros." class="nav-link" data-scroll-target="#datos-transformados.-primeros-registros.">Datos Transformados. Primeros Registros.</a></li>
-  <li><a href="#biplot." id="toc-biplot." class="nav-link" data-scroll-target="#biplot.">Biplot.</a></li>
-  <li><a href="#gráfico-de-variables." id="toc-gráfico-de-variables." class="nav-link" data-scroll-target="#gráfico-de-variables.">Gráfico de Variables.</a></li>
-  <li><a href="#coordenadas-de-las-variables-en-los-pc." id="toc-coordenadas-de-las-variables-en-los-pc." class="nav-link" data-scroll-target="#coordenadas-de-las-variables-en-los-pc.">Coordenadas de las variables en los PC.</a></li>
-  <li><a href="#calidad-de-la-representación-de-cada-variable-en-cada-pc." id="toc-calidad-de-la-representación-de-cada-variable-en-cada-pc." class="nav-link" data-scroll-target="#calidad-de-la-representación-de-cada-variable-en-cada-pc.">Calidad de la representación de cada variable en cada PC.</a></li>
-  <li><a href="#contribución-de-cada-variable-a-cda-pc." id="toc-contribución-de-cada-variable-a-cda-pc." class="nav-link" data-scroll-target="#contribución-de-cada-variable-a-cda-pc.">Contribución de cada variable a cda PC.</a></li>
-  <li><a href="#contribución-de-las-variables." id="toc-contribución-de-las-variables." class="nav-link" data-scroll-target="#contribución-de-las-variables.">Contribución de las variables.</a></li>
-  <li><a href="#contribución-de-los-individuos." id="toc-contribución-de-los-individuos." class="nav-link" data-scroll-target="#contribución-de-los-individuos.">Contribución de los individuos.</a></li>
+  <li><a href="#datos-transformados-primeros-registros" id="toc-datos-transformados-primeros-registros" class="nav-link" data-scroll-target="#datos-transformados-primeros-registros">Datos Transformados: Primeros Registros</a></li>
+  <li><a href="#gráfico-de-variables" id="toc-gráfico-de-variables" class="nav-link" data-scroll-target="#gráfico-de-variables">Gráfico de Variables</a></li>
+  <li><a href="#biplot" id="toc-biplot" class="nav-link" data-scroll-target="#biplot">Biplot</a></li>
+  <li><a href="#coordenadas-de-las-variables-en-las-componentes-principales" id="toc-coordenadas-de-las-variables-en-las-componentes-principales" class="nav-link" data-scroll-target="#coordenadas-de-las-variables-en-las-componentes-principales">Coordenadas de las variables en las Componentes Principales</a></li>
+  <li><a href="#contribución-de-las-variables-con-las-componentes-principales" id="toc-contribución-de-las-variables-con-las-componentes-principales" class="nav-link" data-scroll-target="#contribución-de-las-variables-con-las-componentes-principales">Contribución de las variables con las Componentes Principales</a></li>
   </ul></li>
-  <li><a href="#conclusión." id="toc-conclusión." class="nav-link" data-scroll-target="#conclusión."><strong>Conclusión.</strong></a></li>
+  <li><a href="#conclusión" id="toc-conclusión" class="nav-link" data-scroll-target="#conclusión"><strong>Conclusión</strong></a></li>
   </ul>
 </nav>
 </div>
@@ -168,8 +165,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="introducción"><strong>Introducción</strong></h2>
 <p>Trabajo práctico grupal para la materia “Introducción a Data Mining”: Análisis de Componentes Principales (PCA)</p>
 </section>
-<section id="descripción-del-dataset." class="level2">
-<h2 class="anchored" data-anchor-id="descripción-del-dataset."><strong>Descripción del dataset.</strong></h2>
+<section id="descripción-de-la-base-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="descripción-de-la-base-de-datos"><strong>Descripción de la base de datos</strong></h2>
 <p>Los datos del archivo “quinoa.txt” corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.</p>
 <section id="variables-cuantitativas" class="level3">
 <h3 class="anchored" data-anchor-id="variables-cuantitativas">Variables cuantitativas</h3>
@@ -201,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="zona" class="level3">
 <h3 class="anchored" data-anchor-id="zona">Zona</h3>
-<p>Se decidió agregar una columna a la base de datos llamada “zona”, para determinar en qué zona se desarrolla cada una de las plantas. Los datos fueron obtenidos de la columna “poblaciones”.</p>
+<p>Se decidió agregar una variable llamada “zona” a la base de datos, para determinar en qué zona se desarrolla cada una de las plantas. Los datos fueron obtenidos de la columna “poblaciones”.</p>
 <ul>
 <li><p>Altiplano (AL)</p></li>
 <li><p>Valles de Altura (VA)</p></li>
@@ -435,8 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="correlación-entre-variables-distribuciones-y-gráficos-de-dispersión" class="level3">
 <h3 class="anchored" data-anchor-id="correlación-entre-variables-distribuciones-y-gráficos-de-dispersión">Correlación entre variables, distribuciones y gráficos de dispersión</h3>
-<section id="en-el-gráfico-que-se-presenta-a-continuación-se-puede-ver-la-distribución-de-cada-una-de-las-variables-y-la-correlación-que-hay-entre-ellas." class="level4">
-<h4 class="anchored" data-anchor-id="en-el-gráfico-que-se-presenta-a-continuación-se-puede-ver-la-distribución-de-cada-una-de-las-variables-y-la-correlación-que-hay-entre-ellas.">En el gráfico que se presenta a continuación, se puede ver la distribución de cada una de las variables y la correlación que hay entre ellas.</h4>
+<p>En el gráfico que se presenta a continuación, se puede ver la distribución de cada una de las variables y la correlación que hay entre ellas.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -447,7 +443,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>En el gráfico se pueden ver correlaciones altas entre algunas variables y distribuciones poco campanulares.</p>
-</section>
 </section>
 <section id="boxplots-comparativos-entre-las-variables-del-conjunto-de-datos" class="level3">
 <h3 class="anchored" data-anchor-id="boxplots-comparativos-entre-las-variables-del-conjunto-de-datos">Boxplots comparativos entre las variables del conjunto de datos</h3>
@@ -470,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
-<caption>Proporción de varianza explicada por cada PC</caption>
+<caption>Proporción de la varianza explicada por cada Componente Principal</caption>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; background-color: rgba(211, 211, 211, 255) !important;"></th>
@@ -530,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>Se pueden observar dos autovalores con desvío estándar mayores a 1. Además, se observa que las dos primeras componentes principales explican el 81,3% de la variabilidad total de los datos.</p>
+<p>Se pueden observar dos autovalores mayores a 1. Además, se observa que las dos primeras componentes principales explican el 81,30% de la variabilidad total de los datos.</p>
 <p>A continuación, se puede observar la misma información obtenida en la tabla anterior, pero de manera gráfica:</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -710,10 +705,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-<p>La PC1 es una <strong><em>componentes de tamaño</em></strong>, dado que todas las variables tienen el mismo signo. Se consideran scores naturales. El resto de las <strong><em>componentes son de forma</em>.</strong></p>
+<p>En la <strong>primera componente principal</strong>, se observa que todas las variables tienen signo positivo, lo que indica que varían en la misma dirección. Es decir, cuando una planta presenta valores altos en una variable, también tiende a tener valores altos en las demás. Las plantas con valores altos en esta componente son más grandes y tardan más en desarrollarse, mientras que las que presentan valores bajos son más pequeñas y se desarrollan más rápido.</p>
+<p>En la <strong>segunda componente principal</strong>, las variables de tamaño presentan signos positivos, mientras que las variables relacionadas con los días de desarrollo tienen signos negativos. Esto refleja una relación inversa entre el tamaño y el tiempo de desarrollo de la planta: las plantas con valores altos en esta componente son más grandes y se desarrollan en menos días, mientras que las plantas con valores bajos tienden a ser más pequeñas y tardan más en desarrollarse.</p>
 </section>
-<section id="datos-transformados.-primeros-registros." class="level3">
-<h3 class="anchored" data-anchor-id="datos-transformados.-primeros-registros.">Datos Transformados. Primeros Registros.</h3>
+<section id="datos-transformados-primeros-registros" class="level3">
+<h3 class="anchored" data-anchor-id="datos-transformados-primeros-registros">Datos Transformados: Primeros Registros</h3>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1037,8 +1033,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="biplot." class="level3">
-<h3 class="anchored" data-anchor-id="biplot.">Biplot.</h3>
+<section id="gráfico-de-variables" class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-de-variables">Gráfico de Variables</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1048,9 +1044,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<ul>
+<li><p>En el gráfico, <strong>cada vector representa una variable</strong> del conjunto de datos original.</p></li>
+<li><p>La <strong>dirección</strong> y la <strong>longitud de los vectores</strong> indican la <strong>importancia de cada variable y su correlación con las componentes principales</strong>. Además, <strong>el ángulo</strong> entre los distintos vectores <strong>refleja el grado de correlación entre las variables</strong>: vectores con ángulos pequeños corresponden a variables altamente correlacionadas.</p></li>
+<li><p>En el gráfico se observa que las variables relacionadas con los días de desarrollo de la planta, están muy correlacionadas entre sí. Por otro lado, LONGPEC y ANCHOHO están muy correlacionadas entre sí. Por último, LONGGLO, ALTPL, LONGPAM y DIAMTAL están muy correlacionadas entre sí.</p></li>
+<li><p>Se puede ver que el vector con menor longitud es el de la variable LONGGLO, es decir, esta variable es la que menos contribuye a estas componentes.</p></li>
+</ul>
 </section>
-<section id="gráfico-de-variables." class="level3">
-<h3 class="anchored" data-anchor-id="gráfico-de-variables.">Gráfico de Variables.</h3>
+<section id="biplot" class="level3">
+<h3 class="anchored" data-anchor-id="biplot">Biplot</h3>
+<p>A continuación, se presenta el mismo gráfico pero teniendo en cuenta la variable “Zona”, la cual nos indica en qué zona se desarrolla cada planta.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -1059,19 +1062,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-</div>
-<p>Cada vector representa una variables original. La dirección y longitud indican la importancia y la correlación de la vaariable con los componentes principales.</p>
-<p>El ángulo entre vectores indica correlación entre variables.</p>
+<p>En el gráfico se observa que:</p>
+<ul>
+<li><p>Las plantas que se desarrollan en el Valle Seco (VS) son plantas grandes y la mayoría de ellas tienen valores medios de los días de desarrollo. Sin embargo, se observa que algunas plantas de esta zona tienen valores altos de los días de desarrollo.</p></li>
+<li><p>Las plantas que crecen en el Valle Húmedo (VH) son plantas grandes que tardan mucho en desarrollarse.</p></li>
+<li><p>Las plantas que se desarrollan en Valle de Altura (VA) son plantas pequeñas y, por lo general, tienen valores medios en los días de desarrollo.</p></li>
+<li><p>Por último, las plantas que son del Altiplano (AL), son plantas pequeñas que tardan poco en desarrollarse.</p></li>
+</ul>
 </section>
-<section id="coordenadas-de-las-variables-en-los-pc." class="level3">
-<h3 class="anchored" data-anchor-id="coordenadas-de-las-variables-en-los-pc.">Coordenadas de las variables en los PC.</h3>
+<section id="coordenadas-de-las-variables-en-las-componentes-principales" class="level3">
+<h3 class="anchored" data-anchor-id="coordenadas-de-las-variables-en-las-componentes-principales">Coordenadas de las variables en las Componentes Principales</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="fu">get_pca_var</span>(mundoPca)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var<span class="sc">$</span>coord)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1240,11 +1241,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-</section>
-<section id="calidad-de-la-representación-de-cada-variable-en-cada-pc." class="level3">
-<h3 class="anchored" data-anchor-id="calidad-de-la-representación-de-cada-variable-en-cada-pc.">Calidad de la representación de cada variable en cada PC.</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(var<span class="sc">$</span>cos2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var<span class="sc">$</span>cos2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -1354,219 +1352,88 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.0062036</td>
 <td style="text-align: right;">0.0014028</td>
 </tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="contribución-de-cada-variable-a-cda-pc." class="level3">
-<h3 class="anchored" data-anchor-id="contribución-de-cada-variable-a-cda-pc.">Contribución de cada variable a cda PC.</h3>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">Dim.1</th>
-<th style="text-align: right;">Dim.2</th>
-<th style="text-align: right;">Dim.3</th>
-<th style="text-align: right;">Dim.4</th>
-<th style="text-align: right;">Dim.5</th>
-<th style="text-align: right;">Dim.6</th>
-<th style="text-align: right;">Dim.7</th>
-<th style="text-align: right;">Dim.8</th>
-<th style="text-align: right;">Dim.9</th>
-<th style="text-align: right;">Dim.10</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">DIAMTAL</td>
-<td style="text-align: right;">12.480017</td>
-<td style="text-align: right;">0.1990940</td>
-<td style="text-align: right;">9.506896</td>
-<td style="text-align: right;">8.5675295</td>
-<td style="text-align: right;">5.5418468</td>
-<td style="text-align: right;">3.300485</td>
-<td style="text-align: right;">1.5166433</td>
-<td style="text-align: right;">0.3289659</td>
-<td style="text-align: right;">58.2989987</td>
-<td style="text-align: right;">0.2595242</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ALTPL</td>
-<td style="text-align: right;">13.727919</td>
-<td style="text-align: right;">0.4389843</td>
-<td style="text-align: right;">1.665785</td>
-<td style="text-align: right;">0.3932561</td>
-<td style="text-align: right;">4.6851867</td>
-<td style="text-align: right;">4.994617</td>
-<td style="text-align: right;">4.4614972</td>
-<td style="text-align: right;">16.9372150</td>
-<td style="text-align: right;">7.7008263</td>
-<td style="text-align: right;">44.9947127</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LONGHO</td>
-<td style="text-align: right;">7.821340</td>
-<td style="text-align: right;">27.4272619</td>
-<td style="text-align: right;">2.888633</td>
-<td style="text-align: right;">3.6389349</td>
-<td style="text-align: right;">0.5018666</td>
-<td style="text-align: right;">15.369125</td>
-<td style="text-align: right;">31.2221520</td>
-<td style="text-align: right;">0.3892395</td>
-<td style="text-align: right;">0.0725160</td>
-<td style="text-align: right;">10.6689313</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ANCHOHO</td>
-<td style="text-align: right;">10.040023</td>
-<td style="text-align: right;">13.5728169</td>
-<td style="text-align: right;">1.670337</td>
-<td style="text-align: right;">13.1419400</td>
-<td style="text-align: right;">10.1257325</td>
-<td style="text-align: right;">3.673010</td>
-<td style="text-align: right;">28.7786467</td>
-<td style="text-align: right;">0.0477752</td>
-<td style="text-align: right;">5.2998821</td>
-<td style="text-align: right;">13.6498365</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LONGPEC</td>
-<td style="text-align: right;">9.383399</td>
-<td style="text-align: right;">9.7768904</td>
-<td style="text-align: right;">7.326593</td>
-<td style="text-align: right;">5.4398512</td>
-<td style="text-align: right;">19.0228935</td>
-<td style="text-align: right;">44.818896</td>
-<td style="text-align: right;">0.2308603</td>
-<td style="text-align: right;">0.3282009</td>
-<td style="text-align: right;">1.3393462</td>
-<td style="text-align: right;">2.3330701</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LONGPAN</td>
-<td style="text-align: right;">11.413318</td>
-<td style="text-align: right;">0.0005887</td>
-<td style="text-align: right;">9.220394</td>
-<td style="text-align: right;">29.3454470</td>
-<td style="text-align: right;">2.2233528</td>
-<td style="text-align: right;">0.035079</td>
-<td style="text-align: right;">8.6365247</td>
-<td style="text-align: right;">4.9074529</td>
-<td style="text-align: right;">24.4061251</td>
-<td style="text-align: right;">9.8117180</td>
-</tr>
 <tr class="odd">
 <td style="text-align: left;">LONGGLO</td>
-<td style="text-align: right;">6.472852</td>
-<td style="text-align: right;">0.4384574</td>
-<td style="text-align: right;">57.547352</td>
-<td style="text-align: right;">22.9746367</td>
-<td style="text-align: right;">4.6036275</td>
-<td style="text-align: right;">3.208101</td>
-<td style="text-align: right;">3.1885300</td>
-<td style="text-align: right;">0.7742307</td>
-<td style="text-align: right;">0.7800714</td>
-<td style="text-align: right;">0.0121417</td>
+<td style="text-align: right;">0.4407472</td>
+<td style="text-align: right;">0.0057962</td>
+<td style="text-align: right;">0.4285872</td>
+<td style="text-align: right;">0.1015480</td>
+<td style="text-align: right;">0.0124956</td>
+<td style="text-align: right;">0.0071949</td>
+<td style="text-align: right;">0.0030312</td>
+<td style="text-align: right;">0.0003998</td>
+<td style="text-align: right;">0.0001983</td>
+<td style="text-align: right;">0.0000017</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DSBF</td>
-<td style="text-align: right;">8.366662</td>
-<td style="text-align: right;">20.4264975</td>
-<td style="text-align: right;">3.931781</td>
-<td style="text-align: right;">12.0386155</td>
-<td style="text-align: right;">17.0001284</td>
-<td style="text-align: right;">6.030681</td>
-<td style="text-align: right;">4.7223944</td>
-<td style="text-align: right;">25.5555077</td>
-<td style="text-align: right;">1.3264342</td>
-<td style="text-align: right;">0.6012987</td>
+<td style="text-align: right;">0.5696998</td>
+<td style="text-align: right;">0.2700305</td>
+<td style="text-align: right;">0.0292822</td>
+<td style="text-align: right;">0.0532107</td>
+<td style="text-align: right;">0.0461435</td>
+<td style="text-align: right;">0.0135251</td>
+<td style="text-align: right;">0.0044893</td>
+<td style="text-align: right;">0.0131958</td>
+<td style="text-align: right;">0.0003372</td>
+<td style="text-align: right;">0.0000860</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">DSFL</td>
-<td style="text-align: right;">10.620509</td>
-<td style="text-align: right;">15.0703434</td>
-<td style="text-align: right;">3.164309</td>
-<td style="text-align: right;">3.4811144</td>
-<td style="text-align: right;">1.7399337</td>
-<td style="text-align: right;">1.052185</td>
-<td style="text-align: right;">8.5925411</td>
-<td style="text-align: right;">41.1301064</td>
-<td style="text-align: right;">0.0021737</td>
-<td style="text-align: right;">15.1467847</td>
+<td style="text-align: right;">0.7231680</td>
+<td style="text-align: right;">0.1992242</td>
+<td style="text-align: right;">0.0235664</td>
+<td style="text-align: right;">0.0153865</td>
+<td style="text-align: right;">0.0047227</td>
+<td style="text-align: right;">0.0023597</td>
+<td style="text-align: right;">0.0081685</td>
+<td style="text-align: right;">0.0212378</td>
+<td style="text-align: right;">0.0000006</td>
+<td style="text-align: right;">0.0021656</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DSMF</td>
-<td style="text-align: right;">9.673961</td>
-<td style="text-align: right;">12.6490654</td>
-<td style="text-align: right;">3.077921</td>
-<td style="text-align: right;">0.9786747</td>
-<td style="text-align: right;">34.5554314</td>
-<td style="text-align: right;">17.517822</td>
-<td style="text-align: right;">8.6502104</td>
-<td style="text-align: right;">9.6013059</td>
-<td style="text-align: right;">0.7736262</td>
-<td style="text-align: right;">2.5219823</td>
+<td style="text-align: right;">0.6587159</td>
+<td style="text-align: right;">0.1672158</td>
+<td style="text-align: right;">0.0229230</td>
+<td style="text-align: right;">0.0043257</td>
+<td style="text-align: right;">0.0937938</td>
+<td style="text-align: right;">0.0392875</td>
+<td style="text-align: right;">0.0082233</td>
+<td style="text-align: right;">0.0049577</td>
+<td style="text-align: right;">0.0001966</td>
+<td style="text-align: right;">0.0003606</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<p>En ambas tablas se puede visualizar que DIAMTAL, LONGPAN y ALTPL son las variables que más contribuyen a la primera componente principal. Esto también se puede visualizar en el gráfico Biplot, al observar que el ángulo entre los vectores de estas variables y la CP1 es muy pequeño.</p>
+<p>Por otro lado, se observa que las variables que más contribuyen a la segunda componente principal son LONGHO y DSBF. De la misma manera, se puede visualizar en el gráfico Biplot que son los ángulos más pequeños entre las variables y la CP2.</p>
 </section>
-<section id="contribución-de-las-variables." class="level3">
-<h3 class="anchored" data-anchor-id="contribución-de-las-variables.">Contribución de las variables.</h3>
+<section id="contribución-de-las-variables-con-las-componentes-principales" class="level3">
+<h3 class="anchored" data-anchor-id="contribución-de-las-variables-con-las-componentes-principales">Contribución de las variables con las Componentes Principales</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="contribución-de-los-individuos." class="level3">
-<h3 class="anchored" data-anchor-id="contribución-de-los-individuos.">Contribución de los individuos.</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<p>En este gráfico se vuelve a observar que la variable que menos contribuye a las dos primeras componentes principales es LONGGLO.</p>
 </section>
 </section>
-<section id="conclusión." class="level2">
-<h2 class="anchored" data-anchor-id="conclusión."><strong>Conclusión.</strong></h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="paints/interprestacion.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>PC1 agrupa variables de longitud, diámetro y tamaño, las cuales están muy correlacionadas entre sí. Valores altos pueden definir tamaños de planta más grandes , mientras que valores pequeños, plantas más chicas.</p>
-<p>PC2 puede ayudar a definir otras características de las plantas, como la velocidad de desarrollo con los distintos días desde la siembra.</p>
+<section id="conclusión" class="level2">
+<h2 class="anchored" data-anchor-id="conclusión"><strong>Conclusión</strong></h2>
+<p>La primera componente principal agrupa variables de longitud, diámetro y tamaño, las cuales están muy correlacionadas entre sí. Valores altos pueden definir tamaños de planta más grandes , mientras que valores pequeños, plantas más chicas.</p>
+<p>La segunda componente principal puede ayudar a definir otras características de las plantas, como la velocidad de desarrollo con los distintos días desde la siembra.</p>
 <ul>
-<li><p>Altiplano (AL): desarrollo más rápido de plantas, con plantas de menor tamaño.</p></li>
-<li><p>Valles de Altura (VA): plantas más pequeñas con desarrollo m</p></li>
-<li><p>Valles Húmedos (VH): Plantas más grandes y desarrolladas, con menor velocidad de desarrollo.</p></li>
-<li><p>Valles secos (VS): Plantas más grandes y desarrolladas.</p></li>
+<li><p>Altiplano (AL): Plantas de menor tamaño con desarrollo más veloz.</p></li>
+<li><p>Valles de Altura (VA): Plantas pequeñas con desarrollo medio.</p></li>
+<li><p>Valles Húmedos (VH): Plantas grandes con tiempo de desarrollo lento.</p></li>
+<li><p>Valles secos (VS): Plantas grandes con desarrollo medio.</p></li>
 </ul>
 </section>
 

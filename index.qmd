@@ -19,7 +19,7 @@ editor: visual
 
 Trabajo práctico grupal para la materia "Introducción a Data Mining": Análisis de Componentes Principales (PCA)
 
-## **Descripción del dataset.**
+## **Descripción de la base de datos**
 
 Los datos del archivo "quinoa.txt" corresponden a 24 accesiones de quinoa nativa del Noroeste Argentino caracterizadas a través de 10 variables cuantitativas y 8 variables cualitativas.
 
@@ -65,7 +65,7 @@ Los datos del archivo "quinoa.txt" corresponden a 24 accesiones de quinoa nativa
 
 ### Zona
 
-Se decidió agregar una columna a la base de datos llamada "zona", para determinar en qué zona se desarrolla cada una de las plantas. Los datos fueron obtenidos de la columna "poblaciones".
+Se decidió agregar una variable llamada "zona" a la base de datos, para determinar en qué zona se desarrolla cada una de las plantas. Los datos fueron obtenidos de la columna "poblaciones".
 
 -   Altiplano (AL)
 
@@ -140,7 +140,7 @@ knitr::kable(data.frame(res),digits = 2)
 
 ### Correlación entre variables, distribuciones y gráficos de dispersión
 
-#### En el gráfico que se presenta a continuación, se puede ver la distribución de cada una de las variables y la correlación que hay entre ellas.
+En el gráfico que se presenta a continuación, se puede ver la distribución de cada una de las variables y la correlación que hay entre ellas.
 
 ```{r}
 #| echo: false
@@ -190,14 +190,14 @@ library(kableExtra)
 imp <- summary(mediPca)$importance
 
 # Crear tabla con kable
-kable(imp, digits = 3, caption = "Proporción de varianza explicada por cada PC") %>%
+kable(imp, digits = 3, caption = "Proporción de la varianza explicada por cada Componente Principal") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
   row_spec(0, bold = TRUE, background = "#D3D3D3")  # encabezado estilizado
 
 
 ```
 
-Se pueden observar dos autovalores con desvío estándar mayores a 1. Además, se observa que las dos primeras componentes principales explican el 81,3% de la variabilidad total de los datos.
+Se pueden observar dos autovalores mayores a 1. Además, se observa que las dos primeras componentes principales explican el 81,30% de la variabilidad total de los datos.
 
 A continuación, se puede observar la misma información obtenida en la tabla anterior, pero de manera gráfica:
 
@@ -227,9 +227,11 @@ barplot(mediPca$sdev,
 knitr::kable(as.data.frame(unclass(mediPca$rotation)))
 ```
 
-La PC1 es una ***componentes de tamaño***, dado que todas las variables tienen el mismo signo. Se consideran scores naturales. El resto de las ***componentes son de forma*****.**
+En la **primera componente principal**, se observa que todas las variables tienen signo positivo, lo que indica que varían en la misma dirección. Es decir, cuando una planta presenta valores altos en una variable, también tiende a tener valores altos en las demás. Las plantas con valores altos en esta componente son más grandes y tardan más en desarrollarse, mientras que las que presentan valores bajos son más pequeñas y se desarrollan más rápido.
 
-### Datos Transformados. Primeros Registros.
+En la **segunda componente principal**, las variables de tamaño presentan signos positivos, mientras que las variables relacionadas con los días de desarrollo tienen signos negativos. Esto refleja una relación inversa entre el tamaño y el tiempo de desarrollo de la planta: las plantas con valores altos en esta componente son más grandes y se desarrollan en menos días, mientras que las plantas con valores bajos tienden a ser más pequeñas y tardan más en desarrollarse.
+
+### Datos Transformados: Primeros Registros
 
 ```{r}
 #| echo: false
@@ -241,13 +243,38 @@ La PC1 es una ***componentes de tamaño***, dado que todas las variables tienen 
 knitr::kable((mediPca$x))
 ```
 
-### Biplot.
+### Gráfico de Variables
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
 #| paged-print: false
+
+
+mundoPca <- FactoMineR::PCA(X = datos, scale.unit = T,ncp = ncol(datos), graph = F)
+
+FactoMineR::plot.PCA(mundoPca, choix = "var")
+```
+
+-   En el gráfico, **cada vector representa una variable** del conjunto de datos original.
+
+-   La **dirección** y la **longitud de los vectores** indican la **importancia de cada variable y su correlación con las componentes principales**. Además, **el ángulo** entre los distintos vectores **refleja el grado de correlación entre las variables**: vectores con ángulos pequeños corresponden a variables altamente correlacionadas.
+
+-   En el gráfico se observa que las variables relacionadas con los días de desarrollo de la planta, están muy correlacionadas entre sí. Por otro lado, LONGPEC y ANCHOHO están muy correlacionadas entre sí. Por último, LONGGLO, ALTPL, LONGPAM y DIAMTAL están muy correlacionadas entre sí.
+
+-   Se puede ver que el vector con menor longitud es el de la variable LONGGLO, es decir, esta variable es la que menos contribuye a estas componentes.
+
+### Biplot
+
+A continuación, se presenta el mismo gráfico pero teniendo en cuenta la variable "Zona", la cual nos indica en qué zona se desarrolla cada planta.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
+
 # biplot 
 
 autoplot(mediPca, 
@@ -259,24 +286,17 @@ autoplot(mediPca,
          size = 4)
 ```
 
-### Gráfico de Variables.
+En el gráfico se observa que:
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| paged-print: false
+-   Las plantas que se desarrollan en el Valle Seco (VS) son plantas grandes y la mayoría de ellas tienen valores medios de los días de desarrollo. Sin embargo, se observa que algunas plantas de esta zona tienen valores altos de los días de desarrollo.
 
+-   Las plantas que crecen en el Valle Húmedo (VH) son plantas grandes que tardan mucho en desarrollarse.
 
-mundoPca <- FactoMineR::PCA(X = datos, scale.unit = T,ncp = ncol(datos), graph = T)
+-   Las plantas que se desarrollan en Valle de Altura (VA) son plantas pequeñas y, por lo general, tienen valores medios en los días de desarrollo.
 
-```
+-   Por último, las plantas que son del Altiplano (AL), son plantas pequeñas que tardan poco en desarrollarse.
 
-Cada vector representa una variables original. La dirección y longitud indican la importancia y la correlación de la vaariable con los componentes principales.
-
-El ángulo entre vectores indica correlación entre variables.
-
-### Coordenadas de las variables en los PC.
+### Coordenadas de las variables en las Componentes Principales
 
 ```{r}
 
@@ -285,26 +305,16 @@ knitr::kable(var$coord)
 
 ```
 
-### Calidad de la representación de cada variable en cada PC.
-
 ```{r}
-knitr::kable(head(var$cos2))
+knitr::kable(var$cos2)
 
 ```
 
-### Contribución de cada variable a cda PC.
+En ambas tablas se puede visualizar que DIAMTAL, LONGPAN y ALTPL son las variables que más contribuyen a la primera componente principal. Esto también se puede visualizar en el gráfico Biplot, al observar que el ángulo entre los vectores de estas variables y la CP1 es muy pequeño.
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| paged-print: false
-knitr::kable(var$contrib)
+Por otro lado, se observa que las variables que más contribuyen a la segunda componente principal son LONGHO y DSBF. De la misma manera, se puede visualizar en el gráfico Biplot que son los ángulos más pequeños entre las variables y la CP2.
 
-
-```
-
-### Contribución de las variables.
+### Contribución de las variables con las Componentes Principales
 
 ```{r}
 #| echo: false
@@ -314,28 +324,18 @@ knitr::kable(var$contrib)
 fviz_contrib(mundoPca, choice = "var", axes = 1:2)  #Contribucion de las variables.
 ```
 
-### Contribución de los individuos.
+En este gráfico se vuelve a observar que la variable que menos contribuye a las dos primeras componentes principales es LONGGLO.
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| paged-print: false
-fviz_contrib(mundoPca, choice = "ind", axes = 1:2)  #Contribucion de los individuos.
-```
+## **Conclusión**
 
-## **Conclusión.**
+La primera componente principal agrupa variables de longitud, diámetro y tamaño, las cuales están muy correlacionadas entre sí. Valores altos pueden definir tamaños de planta más grandes , mientras que valores pequeños, plantas más chicas.
 
-![](paints/interprestacion.png){fig-align="center"}
+La segunda componente principal puede ayudar a definir otras características de las plantas, como la velocidad de desarrollo con los distintos días desde la siembra.
 
-PC1 agrupa variables de longitud, diámetro y tamaño, las cuales están muy correlacionadas entre sí. Valores altos pueden definir tamaños de planta más grandes , mientras que valores pequeños, plantas más chicas.
+-   Altiplano (AL): Plantas de menor tamaño con desarrollo más veloz.
 
-PC2 puede ayudar a definir otras características de las plantas, como la velocidad de desarrollo con los distintos días desde la siembra.
+-   Valles de Altura (VA): Plantas pequeñas con desarrollo medio.
 
--   Altiplano (AL): desarrollo más rápido de plantas, con plantas de menor tamaño.
+-   Valles Húmedos (VH): Plantas grandes con tiempo de desarrollo lento.
 
--   Valles de Altura (VA): plantas más pequeñas con desarrollo m
-
--   Valles Húmedos (VH): Plantas más grandes y desarrolladas, con menor velocidad de desarrollo.
-
--   Valles secos (VS): Plantas más grandes y desarrolladas.
+-   Valles secos (VS): Plantas grandes con desarrollo medio.
