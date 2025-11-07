@@ -300,6 +300,10 @@ En el gráfico se observa que:
 ### Coordenadas de las variables en las Componentes Principales
 
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
 
 var <- get_pca_var(mundoPca)
 knitr::kable(var$coord)
@@ -307,6 +311,10 @@ knitr::kable(var$coord)
 ```
 
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| paged-print: false
 knitr::kable(var$cos2)
 
 ```
